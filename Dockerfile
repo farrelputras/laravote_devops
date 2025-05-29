@@ -38,6 +38,6 @@ RUN chown -R www-data:www-data /var/www \
 # Expose port PHP-FPM
 EXPOSE 9000
 
-CMD ["php-fpm7.4", "-F"]
+CMD ["php-fpm", "-F"]
 
 
