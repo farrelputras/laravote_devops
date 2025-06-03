@@ -1,0 +1,72 @@
+name: Laravel CI
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+    branches: [master]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    services:
+      mysql:
+        image: mysql:5.7
+        env:
+          MYSQL_DATABASE: testdb
+          MYSQL_USER: testuser
+          MYSQL_PASSWORD: testpass
+          MYSQL_ROOT_PASSWORD: rootpass
+        ports:
+          - 3306:3306
+        options: >-
+          --health-cmd="mysqladmin ping -h 127.0.0.1 --silent"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=5
+
+    steps:
+      - name: Checkout source code
+        uses: actions/checkout@v3
+
+      - name: Setup PHP 7.4
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '7.4'
+          extensions: mbstring, pdo, mysql
+
+      - name: Add Larastan to Dev Dependencies
+        run: composer require --dev nunomaduro/larastan "^2.0"
+
+      - name: Install Composer Dependencies
+        run: composer install --no-interaction --prefer-dist
+
+      - name: Setup .env for CI
+        run: |
+          cp .env.example .env
+          php artisan config:clear
+          sed -i 's/DB_HOST=.*/DB_HOST=127.0.0.1/' .env
+          sed -i 's/DB_DATABASE=.*/DB_DATABASE=testdb/' .env
+          sed -i 's/DB_USERNAME=.*/DB_USERNAME=testuser/' .env
+          sed -i 's/DB_PASSWORD=.*/DB_PASSWORD=testpass/' .env
+
+      - name: Wait for MySQL
+        run: |
+          for i in {1..10}; do
+            if mysqladmin ping -h "127.0.0.1" --silent; then
+              echo "MySQL is ready"
+              break
+            fi
+            echo "Waiting for MySQL..."
+            sleep 3
+          done
+
+      - name: Run Migrations
+        run: php artisan migrate --force
+
+      - name: Run Unit Tests
+        run: php artisan test || ./vendor/bin/phpunit
+
+      - name: Run Larastan (PHPStan for Laravel)
+        run: ./vendor/bin/phpstan analyse --configuration=phpstan.neon
