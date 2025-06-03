@@ -47,6 +47,9 @@ jobs:
           sed -i 's/DB_DATABASE=.*/DB_DATABASE=testdb/' .env
           sed -i 's/DB_USERNAME=.*/DB_USERNAME=testuser/' .env
           sed -i 's/DB_PASSWORD=.*/DB_PASSWORD=testpass/' .env
+      
+      - name: Generate APP_KEY
+        run: php artisan key:generate
 
       - name: Wait for MySQL
         run: |
