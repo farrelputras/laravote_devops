@@ -36,6 +36,9 @@ jobs:
           php-version: '7.4'
           extensions: mbstring, pdo, mysql
 
+      - name: Install Composer Dependencies
+        run: composer install --no-interaction --prefer-dist
+
       - name: Setup .env for CI
         run: |
           cp .env.example .env
