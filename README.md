@@ -1,3 +1,9 @@
+# Laravote DevOps Team - PSO C Kelompok 9 (Genap 2024/2025)
+- Ivena Sabita W. (5026221014)
+- Fernandio Farrel P. S. (5026221102)
+- Faiz Musyaffa R. (5026221153)
+- M. Geresidi Rachmadi (5026221163)
+
 # laravote
 Online Voting Website with Laravel
 

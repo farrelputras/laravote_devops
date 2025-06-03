@@ -32,9 +32,6 @@ RUN composer install
 RUN chown -R www-data:www-data /var/www \
     && chmod -R 775 storage bootstrap/cache
 
-# #Generate application key
-# RUN php artisan key:generate
-
 # Expose port PHP-FPM
 EXPOSE 9000
 
