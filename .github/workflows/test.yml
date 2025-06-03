@@ -37,7 +37,7 @@ jobs:
           extensions: mbstring, pdo, mysql
 
       - name: Add Larastan to Dev Dependencies
-        run: composer require --dev nunomaduro/larastan "^1.0"
+        run: composer require --dev nunomaduro/larastan "^0.7.0"
 
       - name: Install Composer Dependencies
         run: composer install --no-interaction --prefer-dist
