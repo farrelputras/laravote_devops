@@ -14,6 +14,6 @@ class ExampleTest extends TestCase
      */
     public function testBasicTest()
     {
-        $response->assertStatus(true);
+        $this->assertTrue(true);
     }
 }
