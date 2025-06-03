@@ -5,6 +5,8 @@ on:
     branches: [master]
   pull_request:
     branches: [master]
+    ## bukan trigger, jadi bisa secara manual juga lewat UI nya github
+  workflow_dispatch:
 
 jobs:
   test:
