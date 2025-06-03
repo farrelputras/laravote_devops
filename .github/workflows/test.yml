@@ -80,3 +80,14 @@ jobs:
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         run: sonar-scanner
+
+      #ini nanti harusnya setelah run unit tests
+      # nanti run download sonarcloud scanner sama run sonarcloud scan, terus ganti yang dibawah
+      # - name: SonarCloud Scan
+      #   uses: SonarSource/sonarcloud-github-action@v1
+      #   with:
+      #     organization: "your-organization-key/my-team"
+      #     projectKey: "laravote_devops"
+      #     projectSources: "."
+      #   env:
+      #     SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
