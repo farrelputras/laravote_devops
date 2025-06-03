@@ -70,5 +70,13 @@ jobs:
       - name: Run Unit Tests
         run: php artisan test || ./vendor/bin/phpunit
 
-      - name: Run Larastan (PHPStan for Laravel)
-        run: ./vendor/bin/phpstan analyse --configuration=phpstan.neon
+      - name: Run Download SonarCloud Scanner
+        run: |
+          curl -sSLo sonar-scanner.zip https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-5.0.1.3006-linux.zip
+          unzip sonar-scanner.zip -d $HOME
+          echo "$HOME/sonar-scaner-5.0.1.3006-linux/bin" >> $GITHUB_PATH
+
+      - name: Run SonarCloud Scan
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        run: sonar-scanner
