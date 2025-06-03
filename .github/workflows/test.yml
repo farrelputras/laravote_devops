@@ -1,0 +1,31 @@
+name: ci workflow
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+    branches: [master]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout source code
+        uses: actions/checkout@v3
+
+      - name: Setup PHP 7.4
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '7.4'
+          extensions: mbstring, pdo, mysql
+          coverage: none
+
+      - name: Install Composer Dependencies
+        run: composer install --no-interaction --prefer-dist
+
+      - name: Run PHPUnit Tests
+        run: php artisan test || ./vendor/bin/phpunit
+
+      - name: Run Larastan (PHPStan for Laravel)
+        run: ./vendor/bin/phpstan analyse --configuration=phpstan.neon
