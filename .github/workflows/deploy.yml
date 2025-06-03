@@ -1,0 +1,34 @@
+name: Deploy to VM
+
+on:
+  ## trigger kalau pipeline/workflow test.yml complete
+  workflow_run:
+    workflows: ["test"]
+    types:
+      - completed
+
+  ## bukan trigger, jadi bisa secara manual juga lewat UI nya github
+  workflow_dispatch:
+      
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout source code
+        uses: actions/checkout@v4
+
+      - name: Deploy via SSH to VM
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.VM_HOST }}
+          username: ${{ secrets.VM_USER }}
+          password: ${{ secrets.VM_PASSWORD }}
+          script: |
+            cd ~/laravote_devops
+            git pull origin main
+            docker-compose down
+            docker-compose up -d --build
+
+      # - name: step lainnya
+      #   uses: 
