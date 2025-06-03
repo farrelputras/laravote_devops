@@ -36,8 +36,8 @@ jobs:
           php-version: '7.4'
           extensions: mbstring, pdo, mysql
 
-      - name: Ensure composer.lock is updated
-        run: composer update --lock
+      - name: Add Larastan to Dev Dependencies
+        run: composer require --dev nunomaduro/larastan "^2.0"
 
       - name: Install Composer Dependencies
         run: composer install --no-interaction --prefer-dist
