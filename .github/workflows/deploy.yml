@@ -53,15 +53,15 @@ jobs:
             docker-compose exec -T app php artisan migrate --force
 
       # only run this if fresh deploy or data not populated yet
-      - name: Seeder
-        uses: appleboy/ssh-action@master
-        with:
-          host: ${{ secrets.VM_HOST }}
-          username: ${{ secrets.VM_USER }}
-          password: ${{ secrets.VM_PASSWORD }}
-          script: |
-            cd ~/laravote_devops
-            docker-compose exec -T app php artisan db:seed --force
+      # - name: Seeder
+      #   uses: appleboy/ssh-action@master
+      #   with:
+      #     host: ${{ secrets.VM_HOST }}
+      #     username: ${{ secrets.VM_USER }}
+      #     password: ${{ secrets.VM_PASSWORD }}
+      #     script: |
+      #       cd ~/laravote_devops
+      #       docker-compose exec -T app php artisan db:seed --force
 
       - name: Set Folder Permissions
         uses: appleboy/ssh-action@master
