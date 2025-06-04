@@ -18,8 +18,8 @@ jobs:
         env:
           MYSQL_DATABASE: laravote
           MYSQL_USER: root
-          MYSQL_PASSWORD: ""
-          MYSQL_ROOT_PASSWORD: ""
+          MYSQL_PASSWORD: pass
+          MYSQL_ROOT_PASSWORD: rootpass
         ports:
           - 3306:3306
         options: >-
@@ -46,6 +46,9 @@ jobs:
           cp .env.example .env
           php artisan config:clear
           sed -i 's/DB_HOST=.*/DB_HOST=127.0.0.1/' .env
+          sed -i 's/DB_DATABASE=.*/DB_DATABASE=laravote/' .env
+          sed -i 's/DB_USERNAME=.*/DB_USERNAME=root/' .env
+          sed -i 's/DB_PASSWORD=.*/DB_PASSWORD=pass/' .env
       
       - name: Generate APP_KEY
         run: php artisan key:generate
@@ -66,6 +69,12 @@ jobs:
 
       - name: Run Unit Tests
         run: php artisan test || ./vendor/bin/phpunit
+
+      - name: Setup Java 17
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'temurin'
+          java-version: '17'
 
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@v1
