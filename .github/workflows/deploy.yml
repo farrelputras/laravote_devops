@@ -40,6 +40,18 @@ jobs:
             docker-compose down #kalo dipake nanti db nya hilang
             docker-compose up -d --build
 
+      - name: Wait for MySQL to be ready
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.VM_HOST }}
+          username: ${{ secrets.VM_USER }}
+          password: ${{ secrets.VM_PASSWORD }}
+          script: |
+            cd ~/laravote_devops
+            echo "Waiting for MySQL..."
+            docker-compose exec -T db bash -c 'until mysql -uroot -e "SHOW DATABASES;" > /dev/null 2>&1; do echo "Waiting..."; sleep 2; done'
+            docker-compose exec -T app bash -c 'until mysqladmin ping -h"$DB_HOST" --silent; do sleep 2; done'
+
       - name: Migrate Database
         uses: appleboy/ssh-action@master
         with:
