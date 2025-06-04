@@ -78,10 +78,13 @@ jobs:
 
       - name: Download SonarScanner CLI
         run: |
-          SCANNER_ZIP="sonar-scanner-cli-5.0.1.3006-linux.zip"
-          curl -sSLO $SCANNER_ZIP https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-5.0.1.3006-linux.zip
-          unzip -q $SCANNER_ZIP -d $HOME/sonar-scanner
-          echo "$HOME/sonar-scanner/sonar-scanner-5.0.1.3006-linux/bin" >> $GITHUB_PATH
+          mkdir -p "$HOME/sonar-scanner-download"
+          cd "$HOME/sonar-scanner-download"
+          curl -sSLo sonar-scanner-cli-5.0.1.3006-linux.zip \
+            https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-5.0.1.3006-linux.zip
+          mkdir -p "$HOME/sonar-scanner"
+          unzip -q sonar-scanner-cli-5.0.1.3006-linux.zip -d "$HOME/sonar-scanner"
+          echo "$HOME/sonar-scanner/sonar-scanner-5.0.1.3006-linux/bin" >> "$GITHUB_PATH"
 
       - name: Verify Java & SonarScanner
         run: |
