@@ -37,7 +37,6 @@ jobs:
           password: ${{ secrets.VM_PASSWORD }}
           script: |
             cd ~/laravote_devops
-            docker-compose down #kalo dipake nanti db nya hilang
             docker-compose up -d --build
 
       - name: Migrate Database
