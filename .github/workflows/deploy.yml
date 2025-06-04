@@ -37,7 +37,7 @@ jobs:
           password: ${{ secrets.VM_PASSWORD }}
           script: |
             cd ~/laravote_devops
-            docker-compose up -d --build
+            docker-compose up -d --build --no-cache
 
       - name: Migrate Database
         uses: appleboy/ssh-action@master
