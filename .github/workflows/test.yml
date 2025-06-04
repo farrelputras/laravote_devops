@@ -76,14 +76,26 @@ jobs:
           distribution: 'temurin'
           java-version: '17'
 
-      - name: SonarCloud Scan
-        uses: SonarSource/sonarcloud-github-action@v1
-        with:
-          args: >
-            -Dsonar.login=${{ secrets.SONAR_TOKEN }}
-            -Dsonar.organization=kel6pso22
-            -Dsonar.projectKey=faizmanc1ng
-            -Dsonar.host.url=https://sonarcloud.io
-            -Dsonar.sources=.
+      - name: Download SonarScanner CLI
+        run: |
+          SCANNER_ZIP="sonar-scanner-cli-5.0.1.3006-linux.zip"
+          curl -sSLO $SCANNER_ZIP https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-5.0.1.3006-linux.zip
+          unzip -q $SCANNER_ZIP -d $HOME/sonar-scanner
+          echo "$HOME/sonar-scanner/sonar-scanner-5.0.1.3006-linux/bin" >> $GITHUB_PATH
+
+      - name: Verify Java & SonarScanner
+        run: |
+          java -version
+          sonar-scanner --version
+
+      - name: SonarCloud Scan (manual)
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        run: |
+          sonar-scanner \
+            -Dsonar.login=$SONAR_TOKEN \
+            -Dsonar.organization=kel6pso22 \
+            -Dsonar.projectKey=faizmanc1ng \
+            -Dsonar.host.url=https://sonarcloud.io \
+            -Dsonar.sources=. \
+            -Dsonar.sourceEncoding=UTF-8
