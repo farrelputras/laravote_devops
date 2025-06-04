@@ -98,7 +98,7 @@ jobs:
           sonar-scanner \
             -Dsonar.login=$SONAR_TOKEN \
             -Dsonar.organization=kel6pso22 \
-            -Dsonar.projectKey=faizmanc1ng \
+            -Dsonar.projectKey=farrelputras_laravote_devops \
             -Dsonar.host.url=https://sonarcloud.io \
             -Dsonar.sources=. \
             -Dsonar.sourceEncoding=UTF-8
