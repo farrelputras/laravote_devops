@@ -13,6 +13,7 @@ RUN apt-get update && apt-get install -y \
     unzip \
     curl \
     git \
+    default-mysql-client \
     && docker-php-ext-configure gd --with-freetype --with-jpeg \
     && docker-php-ext-install pdo pdo_mysql mbstring zip exif pcntl bcmath gd
 
