@@ -73,8 +73,11 @@ jobs:
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@v1
         with:
-          organization: "kel6pso22"
-          projectKey: "faizmanc1ng"
-          projectSources: "."
+          args: >
+            -Dsonar.login=${{ secrets.SONAR_TOKEN }}
+            -Dsonar.organization=kel6pso22
+            -Dsonar.projectKey=faizmanc1ng
+            -Dsonar.host.url=https://sonarcloud.io
+            -Dsonar.sources=.
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
