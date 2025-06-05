@@ -48,9 +48,9 @@ This CI/CD pipeline automates testing, code quality scanning, and deployment of 
      - `SONAR_TOKEN` — Token for SonarCloud authentication.
 
    - For Deployment via SSH:
-     - `VM_HOST` — IP address of the VPS.
-     - `VM_USER` — SSH username.
-     - `VM_PASSWORD` — SSH password.
+     - `VM_HOST` — IP address of the VM.
+     - `VM_USER` — VM username.
+     - `VM_PASSWORD` — VM password.
 
 > 💡 Notes:
 > - Ensure your VM is preconfigured with Docker, Docker Compose, and has access to the Laravel project path (`~/laravote_devops`).
