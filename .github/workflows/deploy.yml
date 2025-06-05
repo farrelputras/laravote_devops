@@ -39,7 +39,7 @@ jobs:
             cd ~/laravote_devops
             docker-compose rm -f db app web || true
             docker-compose build --no-cache
-            docker-compose up -d --force-recreate
+            docker-compose up -d
 
       - name: Fresh Deploy Setup
         uses: appleboy/ssh-action@master
