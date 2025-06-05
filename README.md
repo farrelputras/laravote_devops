@@ -4,6 +4,9 @@
 - Faiz Musyaffa R. (5026221153)
 - M. Geresidi Rachmadi (5026221163)
 
+# Laravote Documentation Report
+Our project steps documented in https://intip.in/DOCUMENTATIONLARAVOTE
+
 # About Laravote
 Online Voting Website with Laravel <br/>
 Forked from https://github.com/RifkiCS29/laravote
