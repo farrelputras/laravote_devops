@@ -37,6 +37,7 @@ jobs:
           password: ${{ secrets.VM_PASSWORD }}
           script: |
             cd ~/laravote_devops
+            docker-compose rm -f db app web || true
             docker-compose build --no-cache
             docker-compose up -d --force-recreate
 
@@ -83,7 +84,6 @@ jobs:
           username: ${{ secrets.VM_USER }}
           password: ${{ secrets.VM_PASSWORD }}
           script: |
-            cd ~/laravote_devops
             cd ~/laravote_devops
             docker-compose exec -T app bash -c '
               if [ ! -f .env ] || ! grep -q "APP_KEY=base64" .env; then
