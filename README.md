@@ -5,8 +5,9 @@
 - M. Geresidi Rachmadi (5026221163)
 
 # Laravote Documentation Report
-Our project steps documented in https://intip.in/DOCUMENTATIONLARAVOTE
+Our project steps documented in https://intip.in/DOCUMENTATIONLARAVOTE\
 
+---
 # About Laravote
 Online Voting Website with Laravel <br/>
 Forked from https://github.com/RifkiCS29/laravote
@@ -14,21 +15,24 @@ Forked from https://github.com/RifkiCS29/laravote
 ## About The Project - Laravote Devops
 Laravote is an online voting tool built using Laravel, originally forked from https://github.com/RifkiCS29/laravote. This project enhances the original application by integrating CI/CD automation using GitHub Actions, enabling seamless testing and deployment workflows. It is deployed on an Azure Virtual Machine, ensuring consistent accessibility and performance. The addition of CI/CD not only streamlines the development process but also reduces manual intervention and increases deployment reliability.
 
-## How to Install This Project
+### Built With
+![Laravel](https://img.shields.io/badge/Laravel-FF2D20?style=for-the-badge&logo=laravel&logoColor=white)
+![Docker](https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white)
+![GitHub Actions](https://img.shields.io/badge/GitHub%20Actions-2088FF?style=for-the-badge&logo=github-actions&logoColor=white)
+![SonarCloud](https://img.shields.io/badge/SonarCloud-F3702A?style=for-the-badge&logo=sonarcloud&logoColor=white)
+![Azure](https://img.shields.io/badge/Azure%20VM-0078D4?style=for-the-badge&logo=microsoftazure&logoColor=white)
+![Grafana](https://img.shields.io/badge/Grafana-F46800?style=for-the-badge&logo=grafana&logoColor=white)
+![Prometheus](https://img.shields.io/badge/Prometheus-E6522C?style=for-the-badge&logo=prometheus&logoColor=white)
+---
+# How to Install This Project
 
-### Requirements
-
-Make sure you have the following tools installed:
-
+## Prerequisites
 - A terminal (Command Prompt, PowerShell, or Git Bash)
 - A web server such as [XAMPP](https://www.apachefriends.org/) with **PHP ≥ 7.1.3**
 - [Composer](https://getcomposer.org/) installed (`composer -V` to check)
 - Internet connection (required to download dependencies)
 
----
-
-### 📥 Installation Steps
-
+## Local Setup
 1. **Download the Source Code**
 
    Download this repository as a `.zip` file or clone it.
@@ -136,8 +140,7 @@ Make sure you have the following tools installed:
 
     Visit: [http://localhost:8000](http://localhost:8000)
 
----
-
+## Cloud Setup
 
 ## Github Actions CI/CD Pipeline
 This CI/CD pipeline automates testing, code quality scanning, and deployment of the Laravel application to a remote Virtual Machine (VM).
@@ -183,17 +186,8 @@ This CI/CD pipeline automates testing, code quality scanning, and deployment of 
 > 💡 Notes:
 > - Ensure your VM is preconfigured with Docker, Docker Compose, and has access to the Laravel project path (`~/laravote_devops`).
 > - The pipeline supports both incremental deployments and fresh setup detection.
-
-### Built With
-![Laravel](https://img.shields.io/badge/Laravel-FF2D20?style=for-the-badge&logo=laravel&logoColor=white)
-![Docker](https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white)
-![GitHub Actions](https://img.shields.io/badge/GitHub%20Actions-2088FF?style=for-the-badge&logo=github-actions&logoColor=white)
-![SonarCloud](https://img.shields.io/badge/SonarCloud-F3702A?style=for-the-badge&logo=sonarcloud&logoColor=white)
-![Azure](https://img.shields.io/badge/Azure%20VM-0078D4?style=for-the-badge&logo=microsoftazure&logoColor=white)
-![Grafana](https://img.shields.io/badge/Grafana-F46800?style=for-the-badge&logo=grafana&logoColor=white)
-![Prometheus](https://img.shields.io/badge/Prometheus-E6522C?style=for-the-badge&logo=prometheus&logoColor=white)
-
-### Laravote Image
+---
+### Screenshots
 ![01 Halaman Login](https://github.com/RifkiCS29/laravote/blob/master/public/img/login.png)
 ![01 Halaman Home Summary](https://github.com/RifkiCS29/laravote/blob/master/public/img/home.png)
 ![01 Halaman Manage Users](https://github.com/RifkiCS29/laravote/blob/master/public/img/manageUser.png)
