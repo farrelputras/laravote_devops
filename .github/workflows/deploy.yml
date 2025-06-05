@@ -39,6 +39,29 @@ jobs:
             cd ~/laravote_devops
             docker-compose up -d --build --no-cache
 
+      - name: Fresh Deploy Setup
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.VM_HOST }}
+          username: ${{ secrets.VM_USER }}
+          password: ${{ secrets.VM_PASSWORD }}
+          script: |
+            cd ~/laravote_devops
+            docker-compose exec -T app bash -c '
+              if [ ! -f .env ] || ! grep -q "APP_KEY=base64" .env; then
+                echo "Fresh deploy detected: setting up .env"
+                cp .env.example .env
+                php artisan key:generate
+                sed -i "s/APP_ENV=local/APP_ENV=production/" .env
+                sed -i "s/APP_DEBUG=true/APP_DEBUG=false/" .env
+                sed -i "s|APP_URL=.*|APP_URL=http://20.106.186.136|" .env
+                php artisan config:clear
+                php artisan config:cache
+              else
+                echo ".env already exists with APP_KEY, skipping fresh setup."
+              fi
+            '
+      
       - name: Migrate Database
         uses: appleboy/ssh-action@master
         with:
@@ -52,16 +75,23 @@ jobs:
             docker-compose exec -T app bash -c 'until mysqladmin ping -hdb --silent; do echo "Waiting (app)..."; sleep 2; done'
             docker-compose exec -T app php artisan migrate --force
 
-      # only run this if fresh deploy or data not populated yet
-      # - name: Seeder
-      #   uses: appleboy/ssh-action@master
-      #   with:
-      #     host: ${{ secrets.VM_HOST }}
-      #     username: ${{ secrets.VM_USER }}
-      #     password: ${{ secrets.VM_PASSWORD }}
-      #     script: |
-      #       cd ~/laravote_devops
-      #       docker-compose exec -T app php artisan db:seed --force
+      - name: Seeder
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.VM_HOST }}
+          username: ${{ secrets.VM_USER }}
+          password: ${{ secrets.VM_PASSWORD }}
+          script: |
+            cd ~/laravote_devops
+            cd ~/laravote_devops
+            docker-compose exec -T app bash -c '
+              if [ ! -f .env ] || ! grep -q "APP_KEY=base64" .env; then
+                echo "Running seeder because this looks like a fresh deploy..."
+                php artisan db:seed --force
+              else
+                echo "Seeder skipped: .env already exists and APP_KEY is set."
+              fi
+            '
 
       - name: Set Folder Permissions
         uses: appleboy/ssh-action@master
