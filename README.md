@@ -14,6 +14,131 @@ Forked from https://github.com/RifkiCS29/laravote
 ## About The Project - Laravote Devops
 Laravote is an online voting tool built using Laravel, originally forked from https://github.com/RifkiCS29/laravote. This project enhances the original application by integrating CI/CD automation using GitHub Actions, enabling seamless testing and deployment workflows. It is deployed on an Azure Virtual Machine, ensuring consistent accessibility and performance. The addition of CI/CD not only streamlines the development process but also reduces manual intervention and increases deployment reliability.
 
+## How to Install This Project
+
+### Requirements
+
+Make sure you have the following tools installed:
+
+- A terminal (Command Prompt, PowerShell, or Git Bash)
+- A web server such as [XAMPP](https://www.apachefriends.org/) with **PHP ≥ 7.1.3**
+- [Composer](https://getcomposer.org/) installed (`composer -V` to check)
+- Internet connection (required to download dependencies)
+
+---
+
+### 📥 Installation Steps
+
+1. **Download the Source Code**
+
+   Download this repository as a `.zip` file or clone it.
+
+2. **Extract the Project**
+
+   Extract the zip file to the `htdocs` directory of XAMPP, e.g.:
+
+   ```
+   C:\xampp\htdocs\laravote
+   ```
+
+3. **Navigate to the Project Directory**
+
+   Open your terminal and run:
+
+   ```bash
+   cd path/to/laravote
+   ```
+
+4. **Install Dependencies**
+
+   Run the following command to install PHP dependencies:
+
+   ```bash
+   composer install
+   ```
+
+5. **Verify Laravel Installation**
+
+   Run this command to check if Laravel Artisan is working:
+
+   ```bash
+   php artisan
+   ```
+
+6. **Create a Database**
+
+   Using phpMyAdmin or MySQL CLI, create a new database named:
+
+   ```
+   laravote
+   ```
+
+7. **Set Up the Environment File**
+
+   - Copy `.env.example` to `.env`
+   - Run the command to generate the app key:
+
+     ```bash
+     php artisan key:generate
+     ```
+
+8. **Configure the Database in `.env`**
+
+   Open the `.env` file and update the database configuration:
+
+   ```env
+   DB_CONNECTION=mysql
+   DB_HOST=127.0.0.1
+   DB_PORT=3306
+   DB_DATABASE=laravote
+   DB_USERNAME=root
+   DB_PASSWORD=
+   ```
+
+9. **Add Google OAuth Credentials**
+
+   Add these lines to your `.env` file:
+
+   ```env
+   GOOGLE_CLIENT_ID=your_google_client_id
+   GOOGLE_CLIENT_SECRET=your_google_client_secret
+   GOOGLE_REDIRECT_CALLBACK=http://localhost:8000/google/callback
+   ```
+
+   > 💡 Follow this [tutorial](https://daengweb.id/google-authentication-with-laravel-58) to generate your Google credentials.
+
+10. **Run Migrations**
+
+    To create tables in the database:
+
+    ```bash
+    php artisan migrate
+    ```
+
+11. **Seed the Database**
+
+    Run this command to insert a default admin user:
+
+    ```bash
+    php artisan db:seed
+    ```
+
+    - Email: `rifki@admin.com`
+    - Password: `admin`
+
+12. **Start the Laravel Development Server**
+
+    Finally, run the application locally:
+
+    ```bash
+    php artisan serve
+    ```
+
+    Visit: [http://localhost:8000](http://localhost:8000)
+
+---
+
+
 ## Github Actions CI/CD Pipeline
 This CI/CD pipeline automates testing, code quality scanning, and deployment of the Laravel application to a remote Virtual Machine (VM).
 
