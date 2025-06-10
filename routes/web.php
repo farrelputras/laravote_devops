@@ -29,10 +29,8 @@ Route::resource('users', 'UserController');
 
 Route::resource('candidates', 'CandidateController');
 
-Route::get('/pilihan','ChoiceController@pilihan')->name('candidates.pilihan');
-Route::put('/users/{id}/pilih','ChoiceController@pilih')->name('users.pilih');
+Route::get('/pilihan', 'ChoiceController@pilihan')->name('candidates.pilihan');
+Route::put('/users/{id}/pilih', 'ChoiceController@pilih')->name('users.pilih');
 
-
-
-
-
+Route::post('/voting/session', 'VotingSessionController@start')->name('voting.session');
+Route::put('/users/{id}/toggle-eligible', 'UserController@toggleEligible')->name('users.toggleEligible');

@@ -24,7 +24,7 @@ class HomeController extends Controller
     public function index()
     {
         $candidates = \App\Candidate::with('users')->paginate(5);
-        $jumlah = \App\User::where('status','SUDAH')->count();
+        $jumlah = \App\User::where('status','SUDAH')->count()-1;
         return view('pilihan.summary',compact('candidates','jumlah'));
     }
 }

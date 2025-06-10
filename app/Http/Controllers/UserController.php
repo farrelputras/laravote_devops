@@ -8,14 +8,15 @@ use Illuminate\Support\Facades\Gate;
 
 class UserController extends Controller
 {
-    public function __construct(){
-        $this-> middleware(function($request, $next){
+    public function __construct()
+    {
+        $this->middleware(function ($request, $next) {
             if (Gate::allows('manage-users')) return $next($request);
 
-            abort(403,'Anda Tidak memiliki Hak Akses');
+            abort(403, 'Anda Tidak memiliki Hak Akses');
         });
     }
-    
+
     /**
      * Display a listing of the resource.
      *
@@ -23,7 +24,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        if(request()->ajax()) {
+        if (request()->ajax()) {
             $users = \App\User::query();
             return DataTables::of($users)
                 ->addColumn('action', function ($users) {
@@ -58,7 +59,7 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        $validation = \Validator::make($request->all(),[
+        $validation = \Validator::make($request->all(), [
             "name" => "required|min:5|max:100",
             "nik" => "required|digits_between:16,16|unique:users",
             "phone" => "required|digits_between:10,12",
@@ -101,7 +102,7 @@ class UserController extends Controller
     public function edit($id)
     {
         $user = \App\User::findOrFail($id);
-        return view('users.edit', ['user'=>$user]);
+        return view('users.edit', ['user' => $user]);
     }
 
     /**
@@ -113,7 +114,7 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        \Validator::make($request->all(),[
+        \Validator::make($request->all(), [
             "name" => "required|min:5|max:100",
             "nik" => "required|digits_between:16,16",
             "phone" => "required|digits_between:10,12",
@@ -144,5 +145,14 @@ class UserController extends Controller
         $user = \App\User::findOrFail($id);
         $user->delete();
         return redirect()->route('users.index')->with('status', 'User successfully Deleted');
+    }
+
+    public function toggleEligible($id)
+    {
+        $user = \App\User::findOrFail($id);
+        $user->is_eligible = !$user->is_eligible;
+        $user->save();
+
+        return redirect()->back();
     }
 }

@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -10,19 +11,20 @@
     <title>{{ config('app.name', 'Laravel') }}</title>
 
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-    <link  href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css" rel="stylesheet">
+    <link href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css" rel="stylesheet">
 
     <style type="text/css">
         .custom {
             font-size: 12px;
             font-family: Arial;
         }
-        .bottomcustom, .topcustom {
+
+        .bottomcustom,
+        .topcustom {
             font-size: 12px;
             font-family: Arial;
             width: 100%;
         }
-    
     </style>
 
     <!-- Fonts -->
@@ -30,6 +32,7 @@
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
 
 </head>
+
 <body>
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light navbar-laravel">
@@ -51,46 +54,54 @@
                     <ul class="navbar-nav ml-auto">
                         <!-- Authentication Links -->
                         @guest
-                            <li class="nav-item">
-                                <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
-                            </li>
-                            <li class="nav-item">
-                                @if (Route::has('register'))
-                                    <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
-                                @endif
-                            </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
+                        </li>
+                        <li class="nav-item">
+                            @if (Route::has('register'))
+                            <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
+                            @endif
+                        </li>
                         @else
                         @if(Auth::user()->roles == '["ADMIN"]')
-                            <li class="nav-item">
-                                <a href="{{route('users.index')}}" class="nav-link">Managemen Pengguna</a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="{{route('candidates.index')}}" class="nav-link">Managemen Kandidat</a>
-                            </li>
+                        <li class="nav-item">
+                            <a href="{{route('users.index')}}" class="nav-link">Managemen Pengguna</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{route('candidates.index')}}" class="nav-link">Managemen Kandidat</a>
+                        </li>
+                        <li class="nav-item">
+                            <form method="POST" action="{{ route('voting.session') }}" style="display: inline;">
+                                @csrf
+                                <button type="submit" class="btn btn-link nav-link" style="padding: 0; margin: 0;">
+                                    Mulai Sesi Voting
+                                </button>
+                            </form>
+                        </li>
                         @elseif(Auth::user()->roles == '["VOTER"]')
-                            <li class="nav-item">
-                                <a href="{{route('candidates.pilihan')}}" class="nav-link">Pilihan</a>
-                            </li>
+                        <li class="nav-item">
+                            <a href="{{route('candidates.pilihan')}}" class="nav-link">Pilihan</a>
+                        </li>
                         @endif
-                            <li class="nav-item dropdown">
-                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                    @if(auth()->user()->photo)
-                                        <img src="{{ auth()->user()->photo }}" alt="photo" width="32" height="32" style="margin-right: 8px;">
-                                    @endif
-                                    {{ Auth()->user()->name }} <span class="caret"></span>
-                                </a>
-                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                                    <a class="dropdown-item" href="{{ route('logout') }}"
-                                       onclick="event.preventDefault();
+                        <li class="nav-item dropdown">
+                            <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                @if(auth()->user()->photo)
+                                <img src="{{ auth()->user()->photo }}" alt="photo" width="32" height="32" style="margin-right: 8px;">
+                                @endif
+                                {{ Auth()->user()->name }} <span class="caret"></span>
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="{{ route('logout') }}"
+                                    onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
-                                        {{ __('Logout') }}
-                                    </a>
+                                    {{ __('Logout') }}
+                                </a>
 
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                                        @csrf
-                                    </form>
-                                </div>
-                            </li>
+                                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                    @csrf
+                                </form>
+                            </div>
+                        </li>
                         @endguest
                     </ul>
                 </div>
@@ -102,11 +113,12 @@
         </main>
     </div>
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>  
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
     <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
 
     @stack('script')
 </body>
+
 </html>
