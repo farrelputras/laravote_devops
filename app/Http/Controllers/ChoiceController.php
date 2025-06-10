@@ -27,7 +27,7 @@ class ChoiceController extends Controller
             return redirect()->back()->with('status', 'Sesi voting belum dimulai atau Anda belum diizinkan memilih.');
         }
 
-        $candidate = \App\Candidate::paginate(2);
+        $candidate = \App\Candidate::paginate(6);
         return view('pilihan.index', ['candidates' => $candidate]);
     }
 

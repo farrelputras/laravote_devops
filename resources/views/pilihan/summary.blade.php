@@ -59,3 +59,57 @@
     </div>
 </div>
 @endsection
+
+@section('scripts')
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+@php
+$labels = [];
+$data = [];
+$colors = ['#FF6384', '#36A2EB', '#FFCE56', '#8BC34A', '#9C27B0', '#FF9800'];
+
+foreach($candidates as $candidate) {
+$labels[] = $candidate->nama_ketua . ' & ' . $candidate->nama_wakil;
+$data[] = $candidate->users->count();
+}
+@endphp
+
+<script>
+    const ctx = document.getElementById('chartSuara').getContext('2d');
+    new Chart(ctx, {
+        type: 'pie',
+        data: {
+            labels: {
+                !!json_encode($labels) !!
+            },
+            datasets: [{
+                data: {
+                    !!json_encode($data) !!
+                },
+                backgroundColor: {
+                    !!json_encode(array_slice($colors, 0, count($data))) !!
+                },
+                borderColor: "#fff",
+                borderWidth: 1
+            }]
+        },
+        options: {
+            plugins: {
+                legend: {
+                    position: 'bottom'
+                },
+                tooltip: {
+                    callbacks: {
+                        label: function(context) {
+                            let total = context.chart._metasets[context.datasetIndex].total;
+                            let value = context.raw;
+                            let percentage = ((value / total) * 100).toFixed(1);
+                            return `${context.label}: ${value} Suara (${percentage}%)`;
+                        }
+                    }
+                }
+            }
+        }
+    });
+</script>
+@endsection
