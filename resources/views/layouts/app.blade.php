@@ -22,7 +22,20 @@
             font-family: Arial;
             width: 100%;
         }
-    
+
+    </style>
+
+    <style>
+        .navbar-laravel {
+            background-color: #2C2E83;
+        }
+        .navbar-laravel .navbar-brand,
+        .navbar-laravel .nav-link {
+            color: #ffffff !important;
+        }
+        .navbar-laravel .nav-link:hover {
+            color: #dddddd !important;
+        }
     </style>
 
     <!-- Fonts -->
@@ -32,7 +45,7 @@
 </head>
 <body>
     <div id="app">
-        <nav class="navbar navbar-expand-md navbar-light navbar-laravel">
+        <nav class="navbar navbar-expand-md navbar-dark navbar-laravel">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
                     {{ config('app.name', 'Laravel') }}
@@ -102,7 +115,7 @@
         </main>
     </div>
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>  
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
     <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
