@@ -14,7 +14,7 @@ class CandidateController extends Controller
             abort(403,'Anda Tidak memiliki Hak Akses');
         });
     }
-    
+
     /**
      * Display a listing of the resource.
      *
@@ -22,7 +22,7 @@ class CandidateController extends Controller
      */
     public function index()
     {
-        $candidates = \App\Candidate::paginate(5);
+        $candidates = \App\Candidate::paginate(6);
         return view('candidates.index', ['candidates'=>$candidates]);
     }
 
