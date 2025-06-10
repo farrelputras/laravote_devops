@@ -63,8 +63,8 @@ jobs:
                 echo ".env already exists with APP_KEY, skipping fresh setup."
               fi
             '
-      
-      - name: Migrate Database
+
+      - name: Migrate Database & Link to Image Storage
         uses: appleboy/ssh-action@master
         with:
           host: ${{ secrets.VM_HOST }}
@@ -75,6 +75,7 @@ jobs:
             echo "Waiting for MySQL..."
             docker-compose exec -T db bash -c 'until mysql -uroot -e "SHOW DATABASES;" > /dev/null 2>&1; do echo "Waiting..."; sleep 2; done'
             docker-compose exec -T app bash -c 'until mysqladmin ping -hdb --silent; do echo "Waiting (app)..."; sleep 2; done'
+            docker-compose exec -T app php artisan storage:link
             docker-compose exec -T app php artisan migrate --force
 
       - name: Seeder
