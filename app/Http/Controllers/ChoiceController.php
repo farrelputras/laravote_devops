@@ -15,10 +15,10 @@ class ChoiceController extends Controller
             abort(403,'Anda Tidak memiliki Hak Akses');
         });
     }
-    
+
     public function pilihan()
     {
-        $candidate = \App\Candidate::paginate(2);
+        $candidate = \App\Candidate::paginate(6);
         return view('pilihan.index', ['candidates'=>$candidate]);
     }
 
@@ -26,7 +26,7 @@ class ChoiceController extends Controller
     {
         $id = Auth::user()->id;
         $user = \App\User::findOrFail($id);
-       
+
         $user->candidate_id = $request->get('candidate_id');
         $user->status = "SUDAH";
         $user->save();
