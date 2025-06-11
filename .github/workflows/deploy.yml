@@ -40,6 +40,7 @@ jobs:
             docker-compose rm -f db app web || true
             docker-compose build --no-cache
             docker-compose up -d
+            docker-compose exec -T app composer install --no-interaction --prefer-dist --optimize-autoloader
 
       - name: Fresh Deploy Setup
         uses: appleboy/ssh-action@master
