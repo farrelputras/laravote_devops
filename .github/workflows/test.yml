@@ -72,6 +72,11 @@ jobs:
       - name: Run Unit Tests
         run: ./vendor/bin/phpunit --coverage-clover=coverage.xml
 
+      - name: Debug Coverage File
+        run: |
+          ls -lh coverage.xml
+          head -20 coverage.xml
+
       - name: Setup Java 17
         uses: actions/setup-java@v3
         with:
