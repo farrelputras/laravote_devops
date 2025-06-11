@@ -32,6 +32,7 @@
                                 <th>Email</th>
                                 <th>Status</th>
                                 <th>Eligible?</th>
+                                <th>Token</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -106,6 +107,16 @@
                                 <input type="checkbox" onchange="this.form.submit()" ${data ? 'checked' : ''}>
                             </form>
                         `;
+                }
+            },
+            {
+                data: 'token',
+                name: 'token',
+                orderable: false,
+                searchable: false,
+                className: 'text-center',
+                render: function(data, type, row) {
+                    return `<span>${data}</span>`;
                 }
             },
             {
