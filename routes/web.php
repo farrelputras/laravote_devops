@@ -33,4 +33,5 @@ Route::resource('candidates', 'CandidateController');
 Route::get('/pilihan', 'ChoiceController@pilihan')->name('candidates.pilihan');
 
 Route::post('/voting/session', 'VotingSessionController@start')->name('voting.session');
+Route::post('/voting/session/end', 'VotingSessionController@end')->name('voting.session.end');
 Route::put('/users/{id}/toggle-eligible', 'UserController@toggleEligible')->name('users.toggleEligible');

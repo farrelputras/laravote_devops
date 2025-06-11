@@ -78,6 +78,16 @@
                                 </button>
                             </form>
                         </li>
+                        <li class="nav-item">
+                            <form method="POST" action="{{ route('voting.session.end') }}" style="display: inline;" 
+                                onsubmit="return confirm('Yakin ingin mengakhiri dan me-reset seluruh sesi voting?');">
+                                @csrf
+                                <button type="submit" class="btn btn-link nav-link text-danger" style="padding: 0; margin: 0;">
+                                    Akhiri Sesi Voting
+                                </button>
+                            </form>
+                        </li>
+
                         @elseif(Auth::user()->roles == '["VOTER"]')
                         <li class="nav-item">
                             <a href="{{route('candidates.pilihan')}}" class="nav-link">Pilihan</a>

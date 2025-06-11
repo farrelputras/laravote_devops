@@ -32,4 +32,19 @@ class VotingSessionController extends Controller
 
         return redirect()->back()->with('status', 'Sesi Voting Dimulai dan Token Telah Dibuat');
     }
+
+    public function end()
+    {
+        // Reset session voting (jika ada)
+        \Session::forget('voting_session_active');
+
+        // Reset semua user VOTER (kecuali admin)
+        \App\User::where('roles', '["VOTER"]')->update([
+            'token' => null,
+            'is_eligible' => 0,
+            'status' => 'BELUM',
+            'candidate_id' => null
+        ]);
+        return redirect()->back()->with('status', 'Sesi Voting telah diakhiri, semua data voting sudah direset.');
+    }
 }
