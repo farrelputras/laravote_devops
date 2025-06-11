@@ -2,6 +2,7 @@
 
 @section('content')
 <script>
+    const userId = {{ auth()->id() }};
     function promptForToken(candidateId) {
         const token = prompt("Masukkan token Anda untuk memilih:");
 
@@ -13,7 +14,7 @@
         // Create and submit a hidden form
         const form = document.createElement('form');
         form.method = 'POST';
-        form.action = `/users/${{{ auth()->id() }}}/pilih`;
+        form.action = `/users/${userId}/pilih`;
 
         const csrf = document.createElement('input');
         csrf.type = 'hidden';
