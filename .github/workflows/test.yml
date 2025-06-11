@@ -72,10 +72,11 @@ jobs:
       - name: Run Unit Tests
         run: ./vendor/bin/phpunit --coverage-clover=coverage.xml
 
-      - name: Debug Coverage File
+      - name: Debug & Fix Coverage File
         run: |
           ls -lh coverage.xml
           head -20 coverage.xml
+          sed -i 's|/home/runner/work/laravote_devops/laravote_devops/|./|g' coverage.xml
 
       - name: Setup Java 17
         uses: actions/setup-java@v3
