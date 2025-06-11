@@ -43,6 +43,16 @@
 </div>
 
 @push('script')
+<style>
+    #users_datatable td,
+    #users_datatable th {
+        vertical-align: middle;
+    }
+    #users_datatable td.eligible-checkbox,
+    #users_datatable th.eligible-checkbox {
+        text-align: center !important;
+    }
+</style>
 <script type="text/javascript">
     $('#users_datatable').DataTable({
         responsive: true,
@@ -87,6 +97,7 @@
                 name: 'is_eligible',
                 orderable: false,
                 searchable: false,
+                className: 'eligible-checkbox',
                 render: function(data, type, row) {
                     return `
                             <form method="POST" action="/users/${row.id}/toggle-eligible">

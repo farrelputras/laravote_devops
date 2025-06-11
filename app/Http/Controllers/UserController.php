@@ -151,6 +151,11 @@ class UserController extends Controller
     {
         $user = \App\User::findOrFail($id);
         $user->is_eligible = !$user->is_eligible;
+
+        if (!$user->is_eligible) {
+            $user->token = null;
+        }
+    
         $user->save();
 
         return redirect()->back();
