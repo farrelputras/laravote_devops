@@ -103,5 +103,5 @@ jobs:
             -Dsonar.projectKey=farrelputras_laravote_devops \
             -Dsonar.host.url=https://sonarcloud.io \
             -Dsonar.sources=. \
-            -Dsonar.sourceEncoding=UTF-8
+            -Dsonar.sourceEncoding=UTF-8 \
             -Dsonar.php.coverage.reportPaths=coverage.xml
