@@ -87,7 +87,7 @@
 @php
 $labels = [];
 $data = [];
-$colors = ['#FF6384', '#36A2EB', '#FFCE56', '#8BC34A', '#9C27B0', '#FF9800'];
+$colors = ['#FFCE56', '#8BC34A', '#9C27B0', '#FF9800', '#FF6384', '#36A2EB'];
 
 foreach($candidates as $candidate) {
 $labels[] = $candidate->nama_ketua . ' & ' . $candidate->nama_wakil;
