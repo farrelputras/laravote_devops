@@ -7,7 +7,6 @@ use App\User;
 use App\Candidate;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Gate;
-use Illuminate\Support\Str;
 
 class ChoiceControllerTest extends TestCase
 {
@@ -24,6 +23,7 @@ class ChoiceControllerTest extends TestCase
             'address' => 'Jl. Pancasila No. 1',
             'email' => 'user1@example.com',
             'password' => bcrypt('secret123'),
+            'roles' => '["VOTER"]',
             'token' => 'ABC123',
         ]);
 
@@ -33,7 +33,7 @@ class ChoiceControllerTest extends TestCase
             'visi' => 'Mewujudkan masyarakat adil dan makmur',
             'misi' => 'Membangun infrastruktur merata di seluruh wilayah',
             'program_kerja' => '1. Pendidikan gratis\n2. Kesehatan terjangkau\n3. UMKM naik kelas',
-            'photo_paslon' => 'paslon/fake.jpg', // di-test tidak perlu file beneran
+            'photo_paslon' => 'paslon/fake.jpg',
         ]);
 
         Gate::define('manage-pilihan', fn() => true);
@@ -55,6 +55,7 @@ class ChoiceControllerTest extends TestCase
             'address' => 'Jl. Merdeka Timur No. 12',
             'email' => 'user2@example.com',
             'password' => bcrypt('secret123'),
+            'roles' => '["VOTER"]',
             'token' => null,
         ]);
 
@@ -69,17 +70,6 @@ class ChoiceControllerTest extends TestCase
 
     public function test_user_can_successfully_vote()
     {
-        $user = factory(User::class)->create([
-            'nik' => '3201021503980000',
-            'phone' => '081234567890',
-            'name' => 'Raden Mas Sutrisno Santosa Jaya',
-            'address' => 'Jl. Proklamasi No. 45',
-            'email' => 'user3@example.com',
-            'password' => bcrypt('secret123'),
-            'token' => 'ABC123',
-            'status' => 'BELUM',
-        ]);
-
         $candidate = Candidate::create([
             'nama_ketua' => 'Budi Gunawan',
             'nama_wakil' => 'Siti Aminah',
@@ -87,6 +77,18 @@ class ChoiceControllerTest extends TestCase
             'misi' => 'Reformasi birokrasi dan digitalisasi layanan publik',
             'program_kerja' => '1. Pelayanan publik berbasis digital\n2. Anti korupsi\n3. Pendidikan vokasi',
             'photo_paslon' => 'paslon/fake.jpg',
+        ]);
+
+        $user = factory(User::class)->create([
+            'nik' => '3201021503980000',
+            'phone' => '081234567890',
+            'name' => 'Raden Mas Sutrisno Santosa Jaya',
+            'address' => 'Jl. Proklamasi No. 45',
+            'email' => 'user3@example.com',
+            'password' => bcrypt('secret123'),
+            'roles' => '["VOTER"]',
+            'token' => 'ABC123',
+            'status' => 'BELUM',
         ]);
 
         Gate::define('manage-pilihan', fn() => true);

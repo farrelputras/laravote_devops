@@ -4,6 +4,7 @@ namespace Tests\Feature;
 
 use Tests\TestCase;
 use App\User;
+use App\Candidate;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Str;
@@ -23,6 +24,7 @@ class VotingSessionControllerTest extends TestCase
             'address' => 'Jl. Cinta Damai No. 10',
             'email' => Str::random(6) . '@example.com',
             'password' => bcrypt('password123'),
+            'roles' => '["VOTER"]',
             'is_eligible' => true,
         ]);
 
@@ -42,6 +44,15 @@ class VotingSessionControllerTest extends TestCase
     {
         Gate::define('manage-users', fn() => true);
 
+        $candidate = Candidate::create([
+            'nama_ketua' => 'Cakra Adipati',
+            'nama_wakil' => 'Fitri Handayani',
+            'visi' => 'Inovasi dan kemajuan daerah',
+            'misi' => 'Pendidikan digital untuk generasi muda',
+            'program_kerja' => '1. Beasiswa pendidikan\n2. Internet desa\n3. Inkubator startup',
+            'photo_paslon' => 'paslon/fake.jpg',
+        ]);
+
         $user = factory(User::class)->create([
             'nik' => '3201021503980000',
             'phone' => '081234567890',
@@ -53,7 +64,7 @@ class VotingSessionControllerTest extends TestCase
             'token' => 'ABC123',
             'is_eligible' => true,
             'status' => 'SUDAH',
-            'candidate_id' => 1,
+            'candidate_id' => $candidate->id,
         ]);
 
         $this->actingAs($user);
