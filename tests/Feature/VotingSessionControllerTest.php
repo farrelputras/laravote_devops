@@ -1,55 +1,88 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace Tests\Feature;
 
-use Illuminate\Http\Request;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Gate;
-use Illuminate\Support\Str;
+use Tests\TestCase;
 use App\User;
-use Session;
+use App\Candidate;
 
-class VotingSessionController extends Controller
+class VotingSessionControllerTest extends TestCase
 {
-    public function __construct()
-    {
-        $this->middleware(function ($request, $next) {
-            if (Gate::allows('manage-users')) {
-                return $next($request);
-            }
+    use RefreshDatabase;
 
-            abort(403, 'Anda Tidak memiliki Hak Akses');
-        });
+    protected function setUp(): void
+    {
+        parent::setUp();
+        Gate::define('manage-users', fn () => true);
     }
 
-    public function start()
+    public function test_start_voting_session_generates_tokens()
     {
-        // Aktifkan sesi voting
-        Session::put('voting_session_active', true);
+        $admin = factory(User::class)->create([
+            'roles' => json_encode(['ADMIN']),
+            'name' => 'Admin User Panjang Banget Validasi',
+            'nik' => '3201021503980001',
+            'phone' => '081234567891',
+            'address' => 'Alamat Admin Panjang Validasi Banget'
+        ]);
 
-        // Generate token untuk user yang eligible
-        $eligibleUsers = User::where('is_eligible', true)->get();
+        $eligibleUser = factory(User::class)->create([
+            'is_eligible' => true,
+            'roles' => json_encode(['VOTER']),
+            'name' => 'Voter Panjang Banget Validasi',
+            'nik' => '3201021503980002',
+            'phone' => '081234567892',
+            'address' => 'Alamat Voter Panjang Validasi Banget'
+        ]);
 
-        foreach ($eligibleUsers as $user) {
-            $user->token = strtoupper(Str::random(6));
-            $user->save();
-        }
+        $response = $this->actingAs($admin)->post(route('voting.session'));
 
-        return redirect()->back()->with('status', 'Sesi Voting Dimulai dan Token Telah Dibuat');
+        $response->assertRedirect();
+        $response->assertSessionHas('status', 'Sesi Voting Dimulai dan Token Telah Dibuat');
+
+        $this->assertDatabaseMissing('users', [
+            'id' => $eligibleUser->id,
+            'token' => null,
+        ]);
     }
 
-    public function end()
+    public function test_end_voting_session_resets_user_data()
     {
-        // Matikan sesi voting
-        Session::forget('voting_session_active');
+        $admin = factory(User::class)->create([
+            'roles' => json_encode(['ADMIN']),
+            'name' => 'Admin Lain Valid Panjang',
+            'nik' => '3201021503980003',
+            'phone' => '081234567893',
+            'address' => 'Alamat Admin Valid Panjang'
+        ]);
 
-        // Reset semua user VOTER (tidak termasuk ADMIN)
-        User::whereJsonContains('roles', 'VOTER')->update([
+        $candidate = factory(Candidate::class)->create();
+
+        $voter = factory(User::class)->create([
+            'roles' => json_encode(['VOTER']),
+            'is_eligible' => true,
+            'token' => 'ABC123',
+            'status' => 'SUDAH',
+            'candidate_id' => $candidate->id,
+            'name' => 'Voter Panjang Validasi Banget',
+            'nik' => '3201021503980004',
+            'phone' => '081234567894',
+            'address' => 'Alamat Voter Panjang Validasi Sekali'
+        ]);
+
+        $response = $this->actingAs($admin)->post(route('voting.session.end'));
+
+        $response->assertRedirect();
+        $response->assertSessionHas('status', 'Sesi Voting telah diakhiri, semua data voting sudah direset.');
+
+        $this->assertDatabaseHas('users', [
+            'id' => $voter->id,
             'token' => null,
             'is_eligible' => false,
             'status' => 'BELUM',
             'candidate_id' => null
         ]);
-
-        return redirect()->back()->with('status', 'Sesi Voting telah diakhiri, semua data voting sudah direset.');
     }
 }
