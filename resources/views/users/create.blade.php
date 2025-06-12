@@ -1,59 +1,94 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12">
-                <div class="card">
-                    <div class="card-header">
-                        <h3 class="card-title">Tambah Data Pemilih (Voters)</h3>
-                    </div>
-                    <div class="card-body">
-                        @if (session('status'))
-                            <div class="alert alert-success">
-                                {{ session('status') }}
-                            </div>
-                        @endif
-
-                        <form enctype="multipart/form-data" action="{{route('users.store')}}" method="POST">
-                            @csrf
-                            <div class="form-group">
-                                <label for="">Nama Lengkap</label>
-                                <input type="text" name="name" id="name" class="form-control {{ $errors->first('name') ? "is-invalid" : ""}}" placeholder="Masukkan nama lengkap">
-                                <p class="text-danger">{{ $errors->first('name') }}</p>
-                            </div>
-                            <div class="form-group">
-                                <label for="">NIK</label>
-                                <input type="text" name="nik" id="nik" class="form-control {{ $errors->first('nik') ? "is-invalid" : ""}}" placeholder="Masukkan NIK anda">
-                                <p class="text-danger">{{ $errors->first('nik') }}</p>
-                            </div>
-                            <div class="form-group">
-                                <label for="">Alamat</label>
-                                <textarea name="address" cols="5" rows="5" class="form-control {{ $errors->first('address') ? "is-invalid" : ""}}"></textarea>
-                                <p class="text-danger">{{ $errors->first('address') }}</p>
-                            </div>
-                            <div class="form-group">
-                                <label for="">Phone</label>
-                                <input type="text" name="phone" id="phone" class="form-control {{ $errors->first('phone')  ? "is-invalid" : ""}}">
-                                <p class="text-danger">{{ $errors->first('phone') }}</p>
-                            </div>
-                            <div class="form-group">
-                                <label for="">Email</label>
-                                <input type="text" name="email" id="email" class="form-control {{ $errors->first('email') ? "is-invalid" : ""}}">
-                                <p class="text-danger">{{ $errors->first('email') }}</p>
-                            </div>
-                            <div class="form-group">
-                                <label for="">Password</label>
-                                <input type="password" name="password" id="password" class="form-control {{ $errors->first('password') ? "is-invalid" : ""}}">
-                                <p class="text-danger">{{ $errors->first('email') }}</p>
-                            </div>
-                            <div class="form-group">
-                                <button class="btn btn-danger btn-sm">Simpan</button>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-md-12">
+      {{-- Card wrapper tetap utuh, hanya menambahkan class section-card --}}
+      <div class="card section-card">
+        {{-- Header: background kuning & teks baru --}}
+        <div class="card-header section-header d-flex justify-content-between align-items-center"
+             style="background-color: #F8B928; color: #2A2F85;">
+          {{-- Teks diganti tanpa menghapus --}}
+          <h3 class="card-title mb-0" style="font-size:1.25rem;">
+            Add New User Data
+          </h3>
+          {{-- Tombol Back (opsional) --}}
+          <a href="{{ route('users.index') }}"
+             class="btn btn-sm"
+             style="background-color: #2A2F85; color: #FFFFFF; border: none;">
+            Back
+          </a>
         </div>
+
+        <div class="card-body section-body">
+          @if(session('status'))
+            <div class="alert alert-success">{{ session('status') }}</div>
+          @endif
+
+          <form action="{{ route('users.store') }}" method="POST">
+            @csrf
+
+            <div class="form-group">
+              <label for="name">Name</label>
+              <input id="name" name="name" type="text"
+                     class="form-control {{ $errors->has('name')?'is-invalid':'' }}"
+                     value="{{ old('name') }}" placeholder="Enter name">
+              <div class="invalid-feedback">{{ $errors->first('name') }}</div>
+            </div>
+
+            <div class="form-group">
+              <label for="nik">NIK</label>
+              <input id="nik" name="nik" type="text"
+                     class="form-control {{ $errors->has('nik')?'is-invalid':'' }}"
+                     value="{{ old('nik') }}" placeholder="Enter NIK">
+              <div class="invalid-feedback">{{ $errors->first('nik') }}</div>
+            </div>
+
+            <div class="form-group">
+              <label for="phone">Phone</label>
+              <input id="phone" name="phone" type="text"
+                     class="form-control {{ $errors->has('phone')?'is-invalid':'' }}"
+                     value="{{ old('phone') }}" placeholder="Enter phone">
+              <div class="invalid-feedback">{{ $errors->first('phone') }}</div>
+            </div>
+
+            <div class="form-group">
+              <label for="address">Address</label>
+              <input id="address" name="address" type="text"
+                     class="form-control {{ $errors->has('address')?'is-invalid':'' }}"
+                     value="{{ old('address') }}" placeholder="Enter address">
+              <div class="invalid-feedback">{{ $errors->first('address') }}</div>
+            </div>
+
+            <div class="form-group">
+              <label for="email">Email</label>
+              <input id="email" name="email" type="email"
+                     class="form-control {{ $errors->has('email')?'is-invalid':'' }}"
+                     value="{{ old('email') }}" placeholder="Enter email">
+              <div class="invalid-feedback">{{ $errors->first('email') }}</div>
+            </div>
+
+            <div class="form-group">
+              <label for="password">Password</label>
+              <input id="password" name="password" type="password"
+                     class="form-control {{ $errors->has('password')?'is-invalid':'' }}"
+                     placeholder="Enter password">
+              <div class="invalid-feedback">{{ $errors->first('password') }}</div>
+            </div>
+
+            {{-- Tombol Save: float ke kanan, warna baru, teks "Save" --}}
+            <div class="form-group">
+              <button type="submit"
+                      class="btn btn-sm"
+                      style="background-color: #2A2F85; color: #FFFFFF; border: none; float: right;">
+                Save
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
     </div>
+  </div>
+</div>
 @endsection
