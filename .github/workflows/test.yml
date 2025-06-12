@@ -109,4 +109,6 @@ jobs:
             -Dsonar.host.url=https://sonarcloud.io \
             -Dsonar.sources=. \
             -Dsonar.sourceEncoding=UTF-8 \
-            -Dsonar.php.coverage.reportPaths=coverage.xml
+            -Dsonar.php.coverage.reportPaths=coverage.xml \
+            -Dsonar.coverage.exclusions=tests/**,database/**,routes/** \
+            -Dsonar.exclusions=tests/**,vendor/**,database/**,routes/**,storage/**
