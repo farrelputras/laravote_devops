@@ -2,83 +2,91 @@
 
 namespace Tests\Feature;
 
+use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\Gate;
 use Tests\TestCase;
 use App\User;
 use App\Candidate;
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Support\Facades\Gate;
-use Illuminate\Support\Str;
 
 class VotingSessionControllerTest extends TestCase
 {
     use RefreshDatabase;
 
+    protected function setUp(): void
+    {
+        parent::setUp();
+        Gate::define('manage-users', fn () => true);
+    }
+
     public function test_start_voting_session_generates_tokens()
     {
-        Gate::define('manage-users', fn() => true);
-
-        $users = factory(User::class, 2)->create([
+        $admin = factory(User::class)->create([
+            'roles' => json_encode(['ADMIN']),
+            'name' => 'Admin User Yang Panjang',
             'nik' => '3201021503980000',
             'phone' => '081234567890',
-            'name' => 'Dewi Sri Hartati Dewantara',
-            'address' => 'Jl. Cinta Damai No. 10',
-            'email' => Str::random(6) . '@example.com',
-            'password' => bcrypt('password123'),
-            'roles' => '["VOTER"]',
-            'is_eligible' => true,
+            'address' => 'Alamat Panjang Validasi'
         ]);
 
-        $this->actingAs($users->first());
+        $eligibleUser = factory(User::class)->create([
+            'is_eligible' => true,
+            'roles' => json_encode(['VOTER']),
+            'name' => 'Eligible Voter Panjang',
+            'nik' => '3201021503980000',
+            'phone' => '081234567890',
+            'address' => 'Alamat Panjang'
+        ]);
 
-        $response = $this->post(route('voting.session'));
+        $response = $this->actingAs($admin)->post(route('voting.session'));
 
         $response->assertRedirect();
-        $response->assertSessionHas('status');
+        $response->assertSessionHas('status', 'Sesi Voting Dimulai dan Token Telah Dibuat');
 
-        foreach ($users as $user) {
-            $this->assertNotNull($user->fresh()->token);
-        }
+        $this->assertDatabaseMissing('users', ['token' => null, 'id' => $eligibleUser->id]);
     }
 
     public function test_end_voting_session_resets_user_data()
     {
-        Gate::define('manage-users', fn() => true);
-
-        $candidate = Candidate::create([
-            'nama_ketua' => 'Cakra Adipati',
-            'nama_wakil' => 'Fitri Handayani',
-            'visi' => 'Inovasi dan kemajuan daerah',
-            'misi' => 'Pendidikan digital untuk generasi muda',
-            'program_kerja' => '1. Beasiswa pendidikan\n2. Internet desa\n3. Inkubator startup',
-            'photo_paslon' => 'paslon/fake.jpg',
-        ]);
-
-        $user = factory(User::class)->create([
+        $admin = factory(User::class)->create([
+            'roles' => json_encode(['ADMIN']),
+            'name' => 'Admin Lagi',
             'nik' => '3201021503980000',
             'phone' => '081234567890',
-            'name' => 'Ki Hadjar Dewantara Muda',
-            'address' => 'Jl. Revolusi Mental No. 88',
-            'email' => 'voter@example.com',
-            'password' => bcrypt('password321'),
-            'roles' => '["VOTER"]',
-            'token' => 'ABC123',
-            'is_eligible' => true,
-            'status' => 'SUDAH',
-            'candidate_id' => $candidate->id,
+            'address' => 'Alamat Admin Panjang'
         ]);
 
-        $this->actingAs($user);
+        $candidate = factory(Candidate::class)->create([
+            'nama_ketua' => 'Ketua Validasi',
+            'nama_wakil' => 'Wakil Validasi',
+            'visi' => 'Visi Panjang',
+            'misi' => 'Misi Panjang',
+            'program_kerja' => 'Program Panjang',
+            'photo_paslon' => 'foto.jpg'
+        ]);
 
-        $response = $this->post(route('voting.session.end'));
+        $voter = factory(User::class)->create([
+            'roles' => json_encode(['VOTER']),
+            'is_eligible' => true,
+            'token' => 'ABC123',
+            'status' => 'SUDAH',
+            'candidate_id' => $candidate->id,
+            'name' => 'Voter Panjang Sekali',
+            'nik' => '3201021503980000',
+            'phone' => '081234567890',
+            'address' => 'Alamat Voter Valid'
+        ]);
+
+        $response = $this->actingAs($admin)->post(route('voting.session.end'));
 
         $response->assertRedirect();
-        $response->assertSessionHas('status');
+        $response->assertSessionHas('status', 'Sesi Voting telah diakhiri, semua data voting sudah direset.');
 
-        $fresh = $user->fresh();
-
-        $this->assertNull($fresh->token);
-        $this->assertEquals(0, $fresh->is_eligible);
-        $this->assertEquals('BELUM', $fresh->status);
-        $this->assertNull($fresh->candidate_id);
+        $this->assertDatabaseHas('users', [
+            'id' => $voter->id,
+            'token' => null,
+            'is_eligible' => false,
+            'status' => 'BELUM',
+            'candidate_id' => null
+        ]);
     }
 }
