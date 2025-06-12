@@ -69,7 +69,7 @@ class UserControllerTest extends TestCase
         $response = $this->actingAs($admin)->delete(route('users.destroy', $user->id));
 
         $response->assertRedirect(route('users.index'));
-        $this->assertDeleted($user);
+        $this->assertDatabaseMissing('users', ['id' => $user->id]);
     }
 
     public function test_user_toggle_eligible()
