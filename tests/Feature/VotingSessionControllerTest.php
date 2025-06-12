@@ -1,92 +1,55 @@
 <?php
 
-namespace Tests\Feature;
+namespace App\Http\Controllers;
 
-use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
-use Tests\TestCase;
+use Illuminate\Support\Str;
 use App\User;
-use App\Candidate;
+use Session;
 
-class VotingSessionControllerTest extends TestCase
+class VotingSessionController extends Controller
 {
-    use RefreshDatabase;
-
-    protected function setUp(): void
+    public function __construct()
     {
-        parent::setUp();
-        Gate::define('manage-users', fn () => true);
+        $this->middleware(function ($request, $next) {
+            if (Gate::allows('manage-users')) {
+                return $next($request);
+            }
+
+            abort(403, 'Anda Tidak memiliki Hak Akses');
+        });
     }
 
-    public function test_start_voting_session_generates_tokens()
+    public function start()
     {
-        $admin = factory(User::class)->create([
-            'roles' => json_encode(['ADMIN']),
-            'name' => 'Admin User Yang Panjang',
-            'nik' => '3201021503980000',
-            'phone' => '081234567890',
-            'address' => 'Alamat Panjang Validasi'
-        ]);
+        // Aktifkan sesi voting
+        Session::put('voting_session_active', true);
 
-        $eligibleUser = factory(User::class)->create([
-            'is_eligible' => true,
-            'roles' => json_encode(['VOTER']),
-            'name' => 'Eligible Voter Panjang',
-            'nik' => '3201021503980000',
-            'phone' => '081234567890',
-            'address' => 'Alamat Panjang'
-        ]);
+        // Generate token untuk user yang eligible
+        $eligibleUsers = User::where('is_eligible', true)->get();
 
-        $response = $this->actingAs($admin)->post(route('voting.session'));
+        foreach ($eligibleUsers as $user) {
+            $user->token = strtoupper(Str::random(6));
+            $user->save();
+        }
 
-        $response->assertRedirect();
-        $response->assertSessionHas('status', 'Sesi Voting Dimulai dan Token Telah Dibuat');
-
-        $this->assertDatabaseMissing('users', ['token' => null, 'id' => $eligibleUser->id]);
+        return redirect()->back()->with('status', 'Sesi Voting Dimulai dan Token Telah Dibuat');
     }
 
-    public function test_end_voting_session_resets_user_data()
+    public function end()
     {
-        $admin = factory(User::class)->create([
-            'roles' => json_encode(['ADMIN']),
-            'name' => 'Admin Lagi',
-            'nik' => '3201021503980000',
-            'phone' => '081234567890',
-            'address' => 'Alamat Admin Panjang'
-        ]);
+        // Matikan sesi voting
+        Session::forget('voting_session_active');
 
-        $candidate = factory(Candidate::class)->create([
-            'nama_ketua' => 'Ketua Validasi',
-            'nama_wakil' => 'Wakil Validasi',
-            'visi' => 'Visi Panjang',
-            'misi' => 'Misi Panjang',
-            'program_kerja' => 'Program Panjang',
-            'photo_paslon' => 'foto.jpg'
-        ]);
-
-        $voter = factory(User::class)->create([
-            'roles' => json_encode(['VOTER']),
-            'is_eligible' => true,
-            'token' => 'ABC123',
-            'status' => 'SUDAH',
-            'candidate_id' => $candidate->id,
-            'name' => 'Voter Panjang Sekali',
-            'nik' => '3201021503980000',
-            'phone' => '081234567890',
-            'address' => 'Alamat Voter Valid'
-        ]);
-
-        $response = $this->actingAs($admin)->post(route('voting.session.end'));
-
-        $response->assertRedirect();
-        $response->assertSessionHas('status', 'Sesi Voting telah diakhiri, semua data voting sudah direset.');
-
-        $this->assertDatabaseHas('users', [
-            'id' => $voter->id,
+        // Reset semua user VOTER (tidak termasuk ADMIN)
+        User::whereJsonContains('roles', 'VOTER')->update([
             'token' => null,
             'is_eligible' => false,
             'status' => 'BELUM',
             'candidate_id' => null
         ]);
+
+        return redirect()->back()->with('status', 'Sesi Voting telah diakhiri, semua data voting sudah direset.');
     }
 }
