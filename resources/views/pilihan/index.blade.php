@@ -47,38 +47,45 @@
 </script>
 
 <div class="container">
-    <div class="row">
-        <div class="col-md-12">
-            @if(session('status'))
-            <div class="alert alert-success">
-                {{session('status')}}
+  @if(session('status'))
+    <div class="alert alert-success">{{ session('status') }}</div>
+  @endif
+
+  @if(Auth::user()->status === "BELUM")
+    <div class="row vote-cards">
+      @foreach($candidates as $candidate)
+        <div class="col-md-6 mb-4 vote-card">
+          <div class="card h-100">
+            {{-- Header with number & names --}}
+            <div class="card-header text-center">
+              <div class="candidate-number">{{ $candidate->id }}</div>
+              <div class="candidate-names">
+                {{ $candidate->nama_ketua }} &amp; {{ $candidate->nama_wakil }}
+              </div>
             </div>
-            @endif
-            @if(Auth::user()->status == "BELUM")
-            <form enctype="multipart/form-data" action="{{route('users.pilih',['id'=>Auth::user()->id])}}" method="POST">
-                @csrf
-                <input type="hidden" name="_method" value="PUT" class="form-control">
-                <div class="card-group">
-                    @foreach ($candidates as $candidate)
-                    <div class="card">
-                        <h1 align="center">{{$candidate->id}}</h1>
-                        <img class="card-img-top" src="{{asset('storage/'.$candidate->photo_paslon)}}" alt="Card image cap">
-                        <div class="card-body">
-                            <h5 align="center" class="card-title">{{$candidate->nama_ketua}} dan {{$candidate->nama_wakil}}</h5>
-                        </div>
-                        <div class="form-group" align="center">
-                            <button type="button" class="btn btn-primary" onclick="promptForToken({{ $candidate->id }})">PILIH</button>
 
-                        </div>
-                    </div>
+            {{-- Image --}}
+            <div class="card-body p-0">
+              @if($candidate->photo_paslon)
+                <img src="{{ asset('storage/'.$candidate->photo_paslon) }}"
+                     class="img-fluid" alt="Photo Paslon">
+              @endif
+            </div>
 
-                    @endforeach
-                </div>
-            </form>
-            @else
-            <h1 align="center">SUDAH MEMILIH</h1>
-            @endif
+            {{-- Vote button flush at bottom --}}
+            <div class="card-footer">
+              <button type="button"
+                      class="btn btn-vote"
+                      onclick="promptForToken({{ $candidate->id }})">
+                Vote
+              </button>
+            </div>
+          </div>
         </div>
+      @endforeach
     </div>
+  @else
+    <h1 class="text-center mt-5">SUDAH MEMILIH</h1>
+  @endif
 </div>
 @endsection
