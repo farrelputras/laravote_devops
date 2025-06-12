@@ -16,7 +16,7 @@ class ChoiceControllerTest extends TestCase
     {
         $this->withoutExceptionHandling();
 
-        $user = User::factory()->create(['token' => 'ABC123']);
+        $user = factory(User::class)->create(['token' => 'ABC123']);
 
         Gate::define('manage-pilihan', fn() => true);
 
@@ -31,7 +31,7 @@ class ChoiceControllerTest extends TestCase
     {
         $this->withoutExceptionHandling();
 
-        $user = User::factory()->create(['token' => null]);
+        $user = factory(User::class)->create(['token' => null]);
 
         Gate::define('manage-pilihan', fn() => true);
         $this->actingAs($user);
@@ -44,15 +44,16 @@ class ChoiceControllerTest extends TestCase
 
     public function test_user_can_successfully_vote()
     {
-        $user = User::factory()->create([
+        $user = factory(User::class)->create([
             'token' => 'ABC123',
             'status' => 'BELUM'
         ]);
 
+        // Tanpa Candidate::factory()
         $candidate = \App\Candidate::create([
             'name' => 'Contoh Kandidat',
-            'visi' => 'Visi contoh',
-            'misi' => 'Misi contoh',
+            'visi' => 'Visi A',
+            'misi' => 'Misi A',
         ]);
 
         Gate::define('manage-pilihan', fn() => true);

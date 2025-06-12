@@ -15,7 +15,7 @@ class VotingSessionControllerTest extends TestCase
     {
         Gate::define('manage-users', fn() => true);
 
-        $users = User::factory()->count(2)->create(['is_eligible' => true]);
+        $users = factory(User::class, 2)->create(['is_eligible' => true]);
 
         $this->actingAs($users->first());
 
@@ -33,7 +33,7 @@ class VotingSessionControllerTest extends TestCase
     {
         Gate::define('manage-users', fn() => true);
 
-        $user = User::factory()->create([
+        $user = factory(User::class)->create([
             'roles' => '["VOTER"]',
             'token' => 'ABC123',
             'is_eligible' => true,
