@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_','-',app()->getLocale()) }}">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -12,6 +12,7 @@
   <!-- Bootstrap CSS -->
   <link rel="stylesheet"
         href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+        integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
         crossorigin="anonymous">
 
   <!-- DataTables CSS -->
@@ -82,7 +83,6 @@
       border: none;
       border-radius: 10px;
     }
-    /* tiny ITS logo next to text */
     .btn-google .its-logo {
       height: 1em;
       margin-right: 8px;
@@ -108,13 +108,9 @@
     .table tbody td {
       vertical-align: middle;
     }
-
-    /* hide DT “Processing…” overlay */
     .dataTables_processing {
       display: none !important;
     }
-
-    /* DataTables top controls */
     .dt-top {
       display: flex !important;
       align-items: center;
@@ -123,8 +119,6 @@
     }
     .dt-top .dataTables_length { margin: 0; }
     .dt-top .dataTables_filter { margin-left: auto; }
-
-    /* DataTables footer info & pagination */
     .bottomcustom {
       display: flex !important;
       justify-content: space-between;
@@ -188,48 +182,76 @@
         {{ config('app.name','Laravote') }}
       </a>
       <button class="navbar-toggler" type="button"
-              data-toggle="collapse" data-target="#navbarNav">
+              data-toggle="collapse" data-target="#navbarNav"
+              aria-controls="navbarNav" aria-expanded="false"
+              aria-label="{{ __('Toggle navigation') }}">
         <span class="navbar-toggler-icon"></span>
       </button>
 
       <div class="collapse navbar-collapse" id="navbarNav">
+        <!-- Left side (empty) -->
+        <ul class="navbar-nav mr-auto"></ul>
+
+        <!-- Right side -->
         <ul class="navbar-nav ml-auto">
           @guest
             <li class="nav-item">
-              <a class="nav-link" href="{{ route('login') }}">Login</a>
+              <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
             </li>
             @if(Route::has('register'))
               <li class="nav-item">
-                <a class="nav-link" href="{{ route('register') }}">Register</a>
+                <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
               </li>
             @endif
           @else
-            @if(Auth::user()->roles=='["ADMIN"]')
+            @if(Auth::user()->roles == '["ADMIN"]')
               <li class="nav-item">
-                <a class="nav-link" href="{{ route('users.index') }}">User Management</a>
+                <a href="{{ route('users.index') }}" class="nav-link">Managemen Pengguna</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="{{ route('candidates.index') }}">Candidate Management</a>
+                <a href="{{ route('candidates.index') }}" class="nav-link">Managemen Kandidat</a>
               </li>
-            @elseif(Auth::user()->roles=='["VOTER"]')
-              {{-- now labeled “Voting” --}}
+              <li class="nav-item">
+                <form method="POST" action="{{ route('voting.session') }}" style="display:inline">
+                  @csrf
+                  <button type="submit" class="btn btn-link nav-link p-0 m-0">
+                    Mulai Sesi Voting
+                  </button>
+                </form>
+              </li>
+              <li class="nav-item">
+                <form method="POST" action="{{ route('voting.session.end') }}" style="display:inline"
+                      onsubmit="return confirm('Yakin ingin mengakhiri dan mereset sesi voting?');">
+                  @csrf
+                  <button type="submit" class="btn btn-link nav-link text-danger p-0 m-0">
+                    Akhiri Sesi Voting
+                  </button>
+                </form>
+              </li>
+            @elseif(Auth::user()->roles == '["VOTER"]')
               <li class="nav-item">
                 <a class="nav-link" href="{{ route('candidates.pilihan') }}">Voting</a>
               </li>
             @endif
+
             <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown">
+              <a id="navbarDropdown" class="nav-link dropdown-toggle"
+                 href="#" role="button" data-toggle="dropdown"
+                 aria-haspopup="true" aria-expanded="false" v-pre>
                 @if(auth()->user()->photo)
                   <img src="{{ auth()->user()->photo }}"
-                       width="32" height="32" style="margin-right:6px;">
+                       width="32" height="32"
+                       style="margin-right:6px;">
                 @endif
                 {{ Auth::user()->name }}
               </a>
-              <div class="dropdown-menu dropdown-menu-right">
+              <div class="dropdown-menu dropdown-menu-right"
+                   aria-labelledby="navbarDropdown">
                 <a class="dropdown-item"
                    href="{{ route('logout') }}"
-                   onclick="event.preventDefault();document.getElementById('logout-form').submit();">
-                  Logout
+                   onclick="event.preventDefault();
+                            document.getElementById('logout-form').submit();">
+                  {{ __('Logout') }}
                 </a>
                 <form id="logout-form"
                       action="{{ route('logout') }}"
@@ -254,7 +276,7 @@
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"
           crossorigin="anonymous"></script>
 
-  <!-- DataTables JS (for your Admin tables) -->
+  <!-- DataTables JS (for Admin tables) -->
   <script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
   <script src="https://cdn.datatables.net/1.10.16/js/dataTables.bootstrap4.min.js"></script>
 

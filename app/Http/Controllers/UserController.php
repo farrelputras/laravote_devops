@@ -14,6 +14,7 @@ class UserController extends Controller
             if (Gate::allows('manage-users')) {
                 return $next($request);
             }
+
             abort(403, 'Anda Tidak memiliki Hak Akses');
         });
     }
@@ -77,7 +78,7 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        $validation = \Validator::make($request->all(), [
+        \Validator::make($request->all(), [
             "name"     => "required|min:5|max:100",
             "nik"      => "required|digits_between:16,16|unique:users",
             "phone"    => "required|digits_between:10,12",
@@ -153,5 +154,22 @@ class UserController extends Controller
 
         return redirect()->route('users.index')
                          ->with('status', 'User successfully Deleted');
+    }
+
+    /**
+     * Toggle eligibility & clear token if ineligible.
+     */
+    public function toggleEligible($id)
+    {
+        $user = \App\User::findOrFail($id);
+        $user->is_eligible = !$user->is_eligible;
+
+        if (!$user->is_eligible) {
+            $user->token = null;
+        }
+
+        $user->save();
+
+        return redirect()->back();
     }
 }
