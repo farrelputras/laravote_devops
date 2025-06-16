@@ -53,7 +53,7 @@ class ChoiceControllerTest extends TestCase
         ]);
 
         $response->assertRedirect();
-        $response->assertSessionHas('status', 'Anda Tidak Berhak Memilih');
+        $response->assertSessionHas('status', 'Token tidak boleh kosong');
     }
 
     public function test_user_can_successfully_vote()
