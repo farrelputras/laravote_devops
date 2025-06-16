@@ -39,7 +39,7 @@ class ChoiceController extends Controller
 
         // Check 1: Token is required
         if (!$inputToken) {
-            return redirect()->back()->with('status', 'Anda Tidak Berhak Memilih');
+            return redirect()->back()->with('status', 'Token tidak boleh kosong');
         }
 
         // Check 2: Token does not match

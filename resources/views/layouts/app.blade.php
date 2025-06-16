@@ -226,7 +226,7 @@
               <li class="nav-item">
                 <form method="POST" action="{{ route('voting.session') }}" class="d-inline">
                   @csrf
-                  <button type="submit" class="btn btn-link nav-link mr-3">
+                  <button type="submit" class="btn btn-link nav-link">
                     Start Voting Session
                   </button>
                 </form>
@@ -238,7 +238,7 @@
                       class="d-inline"
                       onsubmit="return confirm('Are you sure you want to end and reset the voting session?')">
                   @csrf
-                  <button type="submit" class="btn btn-link nav-link text-danger mr-3">
+                  <button type="submit" class="btn btn-link nav-link text-danger">
                     End Voting Session
                   </button>
                 </form>
