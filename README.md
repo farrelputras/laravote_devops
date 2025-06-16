@@ -1,3 +1,176 @@
+
+# 🗳️ Laravote - DevOps Voting Application
+
+![Laravote Dashboard](images/laravote-dashboard.png)
+
+**Laravote** is a web-based voting platform enhanced with DevOps best practices and full CI/CD pipeline implementation. This project integrates modern software development workflows including automated testing, containerized deployment, monitoring, and role-based feature control.
+
+Want to dive deeper into our technical documentation?  
+👉 [Read Full Docs Here (Bahasa Indonesia)](https://intip.in/DOCUMENTATIONLARAVOTE)
+
+---
+
+## 🌟 Features
+
+### Voting System Capabilities
+- 🔐 **Token-Based Voting** - Ensure each voter gets one secure, validated vote
+- 🧭 **Role-based Access** - Separate flows for Admin and Voters
+- 📊 **Real-Time Results** - Vote result visualization with charts
+- 🎨 **Improved UI/UX** - Fully redesigned front-end interface using Blade + Bootstrap
+- 🛠️ **Admin Panel** - Manage candidates, view tokens, and monitor progress
+
+---
+
+## 🏗️ Technology Stack
+
+### Backend
+- **Laravel 5.x** (PHP Framework)
+- **PHP 7.x**
+- **MySQL** - Relational database
+- **Composer** - PHP dependency manager
+
+### Frontend
+- **Blade Template Engine**
+- **Bootstrap** + **Custom CSS**
+
+### Infrastructure
+- **Azure Virtual Machine (VM)**
+- **Docker & Docker Compose**
+
+### Development & Testing
+- **Git + GitHub**
+- **GitHub Actions** (CI/CD)
+- **Larastan** - Static code analyzer
+- **PHPUnit** - Unit & feature testing
+- **SonarQube / SonarCloud** - Code quality & test coverage
+
+### Monitoring
+- **Prometheus** - Metrics collection
+- **Grafana** - Real-time dashboard
+- **UptimeRobot** - Live status checker
+- **Sentry** - Error tracking
+
+---
+
+## 🚀 Getting Started
+
+### Prerequisites
+- PHP 7.x
+- Composer
+- Docker & Docker Compose
+- MySQL
+- Node.js (for frontend assets)
+
+### Setup Guide
+
+1. **Clone the Repository**
+```bash
+git clone https://github.com/farrelputras/laravote_devops.git
+cd laravote_devops
+```
+
+2. **Install Dependencies**
+```bash
+composer install
+npm install && npm run dev
+```
+
+3. **Configure Environment**
+```bash
+cp .env.example .env
+php artisan key:generate
+```
+
+4. **Run Migration & Seed**
+```bash
+php artisan migrate --seed
+```
+
+5. **Start Local Development**
+```bash
+php artisan serve
+```
+
+6. **Or Use Docker**
+```bash
+docker-compose up --build -d
+```
+
+---
+
+## 📡 API Documentation
+
+| Method | Endpoint        | Description                   |
+|--------|------------------|-------------------------------|
+| GET    | `/`              | Landing Page                  |
+| POST   | `/login`         | Login User                    |
+| GET    | `/dashboard`     | Admin/Voter Dashboard         |
+| POST   | `/vote`          | Submit Vote Token             |
+| GET    | `/result`        | Visualize Voting Results      |
+
+More available in the full [API Docs](https://intip.in/DOCUMENTATIONLARAVOTE)
+
+---
+
+## 🔁 DevOps & CI/CD Pipeline
+
+### 🔧 Continuous Integration (CI)
+GitHub Actions runs on every `push` and `pull request`:
+- ✅ Static Code Analysis (Larastan)
+- 🧪 Unit & Feature Testing (PHPUnit)
+- 📈 Code Coverage + Smell Report (SonarCloud)
+
+### 🛠 Continuous Deployment (CD)
+Deployment pipeline includes:
+- 🐳 Build Docker image
+- 📦 Push to Azure VM (via SSH)
+- ⚙️ Laravel setup: migrate DB, set permissions
+- 🔁 Zero-downtime deploy with container orchestration
+
+### 🖥 Monitoring System
+- 📊 Prometheus & Grafana: live metrics dashboard
+- 🚨 UptimeRobot for public availability checks
+- 🐛 Sentry for error alerting & bug tracking
+
+---
+
+## 🌐 Live Demo
+
+Visit: [http://20.106.186.136:8080](http://20.106.186.136:8080)  
+🔐 Login Admin:  
+- Email: `rifki@admin.com`  
+- Password: `admin`
+
+---
+
+## 👥 Project Contributors
+
+Final Project Group 9 – PSO C  
+- Ivena Sabita W. (5026221014)  
+- Fernandio Farrel P. S. (5026221102)  
+- Faiz Musyaffa R. (5026221153)  
+- M. Geresidi Rachmadi (5026221163)
+
+---
+
+## 📎 Repositories & Resources
+
+- 🔗 [Laravote DevOps Repo](https://github.com/farrelputras/laravote_devops)
+- 🔗 [Original Laravote Source](https://github.com/RifkiCS29/laravote)
+- 📄 [Documentation](https://intip.in/DOCUMENTATIONLARAVOTE)
+- 🎥 [Project Presentation](https://tekan.id/Progress2-Group9-C)
+
+---
+
+## 📝 License
+
+MIT License — open-source for educational & development purposes.
+
+
+---
+
+# 📚 Original Setup & Detailed Installation Guide
+
 # Laravote DevOps Team - PSO C Kelompok 9 (Genap 2024/2025)
 - Ivena Sabita W. (5026221014)
 - Fernandio Farrel P. S. (5026221102)
@@ -186,6 +359,15 @@ This CI/CD pipeline automates testing, code quality scanning, and deployment of 
 > 💡 Notes:
 > - Ensure your VM is preconfigured with Docker, Docker Compose, and has access to the Laravel project path (`~/laravote_devops`).
 > - The pipeline supports both incremental deployments and fresh setup detection.
+---
+### Screenshots
+![01 Halaman Login](https://github.com/RifkiCS29/laravote/blob/master/public/img/login.png)
+![01 Halaman Home Summary](https://github.com/RifkiCS29/laravote/blob/master/public/img/home.png)
+![01 Halaman Manage Users](https://github.com/RifkiCS29/laravote/blob/master/public/img/manageUser.png)
+![01 Halaman Manage Candidates](https://github.com/RifkiCS29/laravote/blob/master/public/img/manageCandidates.png)
+![01 Halaman Choice](https://github.com/RifkiCS29/laravote/blob/master/public/img/choice.png)
+
+
 ---
 ### Screenshots
 ![01 Halaman Login](https://github.com/RifkiCS29/laravote/blob/master/public/img/login.png)
