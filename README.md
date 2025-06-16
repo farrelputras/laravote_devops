@@ -8,12 +8,6 @@
 Want to dive deeper into our technical documentation?  
 👉 [Read Full Docs Here (Bahasa Indonesia)](https://intip.in/DOCUMENTATIONLARAVOTE)
 
-# Laravote DevOps Team - PSO C Kelompok 9 (Genap 2024/2025)
-- Ivena Sabita W. (5026221014)
-- Fernandio Farrel P. S. (5026221102)
-- Faiz Musyaffa R. (5026221153)
-- M. Geresidi Rachmadi (5026221163)
-
 ---
 
 ## 🌟 Features
@@ -134,7 +128,7 @@ Deployment pipeline includes:
 - 🔁 Zero-downtime deploy with container orchestration
 
 ### 🖥 Monitoring System
-- 📊 Prometheus & Grafana: live metrics dashboard
+- 📊 Azure Monitoring & Grafana: live metrics dashboard
 - 🚨 UptimeRobot for public availability checks
 - 🐛 Sentry for error alerting & bug tracking
 
@@ -170,16 +164,6 @@ Final Project Group 9 – PSO C
 
 # 📚 Original Setup & Detailed Installation Guide
 
-# Laravote Documentation Report
-Our project steps documented in https://intip.in/DOCUMENTATIONLARAVOTE\
-
----
-# About Laravote
-Online Voting Website with Laravel <br/>
-Forked from https://github.com/RifkiCS29/laravote
-
-## About The Project - Laravote Devops
-Laravote is an online voting tool built using Laravel, originally forked from https://github.com/RifkiCS29/laravote. This project enhances the original application by integrating CI/CD automation using GitHub Actions, enabling seamless testing and deployment workflows. It is deployed on an Azure Virtual Machine, ensuring consistent accessibility and performance. The addition of CI/CD not only streamlines the development process but also reduces manual intervention and increases deployment reliability.
 
 ### Built With
 ![Laravel](https://img.shields.io/badge/Laravel-FF2D20?style=for-the-badge&logo=laravel&logoColor=white)
@@ -188,7 +172,6 @@ Laravote is an online voting tool built using Laravel, originally forked from ht
 ![SonarCloud](https://img.shields.io/badge/SonarCloud-F3702A?style=for-the-badge&logo=sonarcloud&logoColor=white)
 ![Azure](https://img.shields.io/badge/Azure%20VM-0078D4?style=for-the-badge&logo=microsoftazure&logoColor=white)
 ![Grafana](https://img.shields.io/badge/Grafana-F46800?style=for-the-badge&logo=grafana&logoColor=white)
-![Prometheus](https://img.shields.io/badge/Prometheus-E6522C?style=for-the-badge&logo=prometheus&logoColor=white)
 ---
 # How to Install This Project
 
