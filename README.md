@@ -8,6 +8,12 @@
 Want to dive deeper into our technical documentation?  
 👉 [Read Full Docs Here (Bahasa Indonesia)](https://intip.in/DOCUMENTATIONLARAVOTE)
 
+# Laravote DevOps Team - PSO C Kelompok 9 (Genap 2024/2025)
+- Ivena Sabita W. (5026221014)
+- Fernandio Farrel P. S. (5026221102)
+- Faiz Musyaffa R. (5026221153)
+- M. Geresidi Rachmadi (5026221163)
+
 ---
 
 ## 🌟 Features
@@ -162,20 +168,7 @@ Final Project Group 9 – PSO C
 
 ---
 
-## 📝 License
-
-MIT License — open-source for educational & development purposes.
-
-
----
-
 # 📚 Original Setup & Detailed Installation Guide
-
-# Laravote DevOps Team - PSO C Kelompok 9 (Genap 2024/2025)
-- Ivena Sabita W. (5026221014)
-- Fernandio Farrel P. S. (5026221102)
-- Faiz Musyaffa R. (5026221153)
-- M. Geresidi Rachmadi (5026221163)
 
 # Laravote Documentation Report
 Our project steps documented in https://intip.in/DOCUMENTATIONLARAVOTE\
@@ -359,14 +352,6 @@ This CI/CD pipeline automates testing, code quality scanning, and deployment of 
 > 💡 Notes:
 > - Ensure your VM is preconfigured with Docker, Docker Compose, and has access to the Laravel project path (`~/laravote_devops`).
 > - The pipeline supports both incremental deployments and fresh setup detection.
----
-### Screenshots
-![01 Halaman Login](https://github.com/RifkiCS29/laravote/blob/master/public/img/login.png)
-![01 Halaman Home Summary](https://github.com/RifkiCS29/laravote/blob/master/public/img/home.png)
-![01 Halaman Manage Users](https://github.com/RifkiCS29/laravote/blob/master/public/img/manageUser.png)
-![01 Halaman Manage Candidates](https://github.com/RifkiCS29/laravote/blob/master/public/img/manageCandidates.png)
-![01 Halaman Choice](https://github.com/RifkiCS29/laravote/blob/master/public/img/choice.png)
-
 
 ---
 ### Screenshots
