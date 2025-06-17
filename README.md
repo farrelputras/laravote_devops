@@ -40,16 +40,12 @@ Want to dive deeper into our technical documentation?
 ### Development & Testing
 - **Git + GitHub**
 - **GitHub Actions** (CI/CD)
-- **Larastan** - Static code analyzer
 - **PHPUnit** - Unit & feature testing
 - **SonarQube / SonarCloud** - Code quality & test coverage
 
 ### Monitoring
 - **Prometheus** - Metrics collection
 - **Grafana** - Real-time dashboard
-- **UptimeRobot** - Live status checker
-- **Sentry** - Error tracking
-
 ---
 
 ## 🚀 Getting Started
@@ -100,13 +96,26 @@ docker-compose up --build -d
 
 ## 📡 API Documentation
 
-| Method | Endpoint        | Description                   |
-|--------|------------------|-------------------------------|
-| GET    | `/`              | Landing Page                  |
-| POST   | `/login`         | Login User                    |
-| GET    | `/dashboard`     | Admin/Voter Dashboard         |
-| POST   | `/vote`          | Submit Vote Token             |
-| GET    | `/result`        | Visualize Voting Results      |
+| Method | Endpoint                      | Description                   |
+|--------|-------------------------------|-------------------------------|
+| GET    | `/home`                       | Landing Page and Visualization|
+| GET    | `/users`                      | User List                     |
+| POST   | `/users                       | Add New User                  |
+| GET    | `/users/{id}`                 | Show User Detail              |
+| PUT    | `/users/{id}`                 | Update User Details           |
+| DELETE | `/users/{id}`                 | Delete User                   |
+| PUT    | `/users/{id}/pilih'           | User Enable Voting            |
+| PUT    | `/users/{id}/toggle-eligible' | User Enable Voting            |
+| POST   | `/voting/session`             | Start Voting Session          |
+| POST   | `/voting/session/end`         | End Voting Session            |
+| GET    | `/candidate`                  | Candidate List                |
+| POST   | `/candidate`                  | Add New Candidate             |
+| GET    | `/candidate/{id}`             | Show Detail Candidate         |
+| PUT    | `/candidate/{ID}`             | Update Candidate Details      |
+| DELETE | `/candidate/{id}`             | Delete a Spesific Candidate   |
+| POST   | `/login`                      | Authenticate User             |
+| POST   | `/logut`                      | Logout Account                |
+
 
 More available in the full [API Docs](https://intip.in/DOCUMENTATIONLARAVOTE)
 
@@ -129,9 +138,6 @@ Deployment pipeline includes:
 
 ### 🖥 Monitoring System
 - 📊 Azure Monitoring & Grafana: live metrics dashboard
-- 🚨 UptimeRobot for public availability checks
-- 🐛 Sentry for error alerting & bug tracking
-
 ---
 
 ## 🌐 Live Demo
@@ -173,121 +179,6 @@ Final Project Group 9 – PSO C
 ![Azure](https://img.shields.io/badge/Azure%20VM-0078D4?style=for-the-badge&logo=microsoftazure&logoColor=white)
 ![Grafana](https://img.shields.io/badge/Grafana-F46800?style=for-the-badge&logo=grafana&logoColor=white)
 ---
-# How to Install This Project
-
-## Prerequisites
-- A terminal (Command Prompt, PowerShell, or Git Bash)
-- A web server such as [XAMPP](https://www.apachefriends.org/) with **PHP ≥ 7.1.3**
-- [Composer](https://getcomposer.org/) installed (`composer -V` to check)
-- Internet connection (required to download dependencies)
-
-## Local Setup
-1. **Download the Source Code**
-
-   Download this repository as a `.zip` file or clone it.
-
-2. **Extract the Project**
-
-   Extract the zip file to the `htdocs` directory of XAMPP, e.g.:
-
-   ```
-   C:\xampp\htdocs\laravote
-   ```
-
-3. **Navigate to the Project Directory**
-
-   Open your terminal and run:
-
-   ```bash
-   cd path/to/laravote
-   ```
-
-4. **Install Dependencies**
-
-   Run the following command to install PHP dependencies:
-
-   ```bash
-   composer install
-   ```
-
-5. **Verify Laravel Installation**
-
-   Run this command to check if Laravel Artisan is working:
-
-   ```bash
-   php artisan
-   ```
-
-6. **Create a Database**
-
-   Using phpMyAdmin or MySQL CLI, create a new database named:
-
-   ```
-   laravote
-   ```
-
-7. **Set Up the Environment File**
-
-   - Copy `.env.example` to `.env`
-   - Run the command to generate the app key:
-
-     ```bash
-     php artisan key:generate
-     ```
-
-8. **Configure the Database in `.env`**
-
-   Open the `.env` file and update the database configuration:
-
-   ```env
-   DB_CONNECTION=mysql
-   DB_HOST=127.0.0.1
-   DB_PORT=3306
-   DB_DATABASE=laravote
-   DB_USERNAME=root
-   DB_PASSWORD=
-   ```
-
-9. **Add Google OAuth Credentials**
-
-   Add these lines to your `.env` file:
-
-   ```env
-   GOOGLE_CLIENT_ID=your_google_client_id
-   GOOGLE_CLIENT_SECRET=your_google_client_secret
-   GOOGLE_REDIRECT_CALLBACK=http://localhost:8000/google/callback
-   ```
-
-   > 💡 Follow this [tutorial](https://daengweb.id/google-authentication-with-laravel-58) to generate your Google credentials.
-
-10. **Run Migrations**
-
-    To create tables in the database:
-
-    ```bash
-    php artisan migrate
-    ```
-
-11. **Seed the Database**
-
-    Run this command to insert a default admin user:
-
-    ```bash
-    php artisan db:seed
-    ```
-
-    - Email: `rifki@admin.com`
-    - Password: `admin`
-
-12. **Start the Laravel Development Server**
-
-    Finally, run the application locally:
-
-    ```bash
-    php artisan serve
-    ```
-
-    Visit: [http://localhost:8000](http://localhost:8000)
 
 ## Cloud Setup
 
