@@ -12,11 +12,23 @@
                         Users Data Management (Voters)
                     </span>
                     {{-- Tombol --}}
+                    <div class="d-flex gap-2">
+                    <!-- DEMO -->
+                    <form action="{{ route('users.destroy', 'all') }}" method="POST" onsubmit="return confirm('Yakin hapus semua user (kecuali admin)?');" style="display:inline-block;">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit"
+                                class="btn btn-sm"
+                                style="background-color: #2A2F85; color: #FFFFFF; border: none;">
+                            Delete All Users
+                        </button>
+                    </form>    
                     <a href="{{ route('users.create') }}"
-                       class="btn btn-sm"
-                       style="background-color: #2A2F85; color: #FFFFFF; border: none;">
-                      Add New Data
+                        class="btn btn-sm"
+                        style="background-color: #2A2F85; color: #FFFFFF; border: none; margin-left: 8px;">
+                        Add New Data
                     </a>
+                    </div>
                 </div>
                 <div class="card-body section-body p-0">
                     @if(session('status'))

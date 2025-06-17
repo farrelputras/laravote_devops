@@ -148,6 +148,12 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
+        // DEMO
+        if ($id === 'all') {
+        \App\User::whereJsonDoesntContain('roles', 'ADMIN')->delete();
+        return redirect()->route('users.index')->with('status', 'Semua user berhasil dihapus');
+        }
+        
         $user = \App\User::findOrFail($id);
         $user->delete();
 
