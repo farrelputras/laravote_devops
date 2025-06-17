@@ -56,7 +56,9 @@ class CandidateControllerTest extends TestCase
             'visi' => 'Visi yang cukup panjang untuk validasi.',
             'misi' => 'Misi yang cukup panjang untuk validasi.',
             'program_kerja' => 'Program kerja yang panjang.',
-            'photo_paslon' => UploadedFile::fake()->image('photo.jpg')
+            'photo_paslon' => UploadedFile::fake()->image('photo.png', 600, 400)
+                ->size(1500) // Size in KB
+                ->mimeType('image/png'),
         ];
 
         $response = $this->post(route('candidates.store'), $data);
@@ -96,7 +98,9 @@ class CandidateControllerTest extends TestCase
             'visi' => 'Visi updated panjang.',
             'misi' => 'Misi updated panjang.',
             'program_kerja' => 'Program kerja updated.',
-            'photo_paslon' => UploadedFile::fake()->image('photo_new.jpg'),
+            'photo_paslon' => UploadedFile::fake()->image('photo_new.png', 600, 400)
+                ->size(1500) // Size in KB
+                ->mimeType('image/png'),
         ];
 
         $response = $this->put(route('candidates.update', $candidate->id), $updateData);
