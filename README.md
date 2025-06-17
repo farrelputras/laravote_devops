@@ -229,8 +229,8 @@ This CI/CD pipeline automates testing, code quality scanning, and deployment of 
 
 ---
 ### Screenshots
-![01 Halaman Login](/loginPage.png)
-![01 Halaman Home Summary](/dashboardPage.png)
-![01 Halaman Manage Users](/userManagementPage.png)
-![01 Halaman Manage Candidates](/candidateManagementPage.png)
-![01 Halaman Choice](/votingPage.png)
+![01 Halaman Login](./public/img/loginPage.png)
+![01 Halaman Home Summary](./public/img/dashboardPage.png)
+![01 Halaman Manage Users](./public/img/userManagementPage.png)
+![01 Halaman Manage Candidates](./public/img/candidateManagementPage.png)
+![01 Halaman Choice](./public/img/votingPage.png)
