@@ -63,12 +63,6 @@
               <button type="submit" class="btn btn-login">
                 {{ __('Login') }}
               </button>
-              <a href="{{ route('login.provider','google') }}"
-                 class="btn btn-google">
-                <img src="{{ asset('img/whiteITSLogo.svg') }}"
-                     class="its-logo">
-                {{ __('Log in with myITS') }}
-              </a>
             </div>
           </form>
         </div>

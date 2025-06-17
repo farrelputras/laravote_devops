@@ -128,7 +128,7 @@ Deployment pipeline includes:
 - 🔁 Zero-downtime deploy with container orchestration
 
 ### 🖥 Monitoring System
-- 📊 Prometheus & Grafana: live metrics dashboard
+- 📊 Azure Monitoring & Grafana: live metrics dashboard
 - 🚨 UptimeRobot for public availability checks
 - 🐛 Sentry for error alerting & bug tracking
 
@@ -162,31 +162,8 @@ Final Project Group 9 – PSO C
 
 ---
 
-## 📝 License
-
-MIT License — open-source for educational & development purposes.
-
-
----
-
 # 📚 Original Setup & Detailed Installation Guide
 
-# Laravote DevOps Team - PSO C Kelompok 9 (Genap 2024/2025)
-- Ivena Sabita W. (5026221014)
-- Fernandio Farrel P. S. (5026221102)
-- Faiz Musyaffa R. (5026221153)
-- M. Geresidi Rachmadi (5026221163)
-
-# Laravote Documentation Report
-Our project steps documented in https://intip.in/DOCUMENTATIONLARAVOTE\
-
----
-# About Laravote
-Online Voting Website with Laravel <br/>
-Forked from https://github.com/RifkiCS29/laravote
-
-## About The Project - Laravote Devops
-Laravote is an online voting tool built using Laravel, originally forked from https://github.com/RifkiCS29/laravote. This project enhances the original application by integrating CI/CD automation using GitHub Actions, enabling seamless testing and deployment workflows. It is deployed on an Azure Virtual Machine, ensuring consistent accessibility and performance. The addition of CI/CD not only streamlines the development process but also reduces manual intervention and increases deployment reliability.
 
 ### Built With
 ![Laravel](https://img.shields.io/badge/Laravel-FF2D20?style=for-the-badge&logo=laravel&logoColor=white)
@@ -195,7 +172,6 @@ Laravote is an online voting tool built using Laravel, originally forked from ht
 ![SonarCloud](https://img.shields.io/badge/SonarCloud-F3702A?style=for-the-badge&logo=sonarcloud&logoColor=white)
 ![Azure](https://img.shields.io/badge/Azure%20VM-0078D4?style=for-the-badge&logo=microsoftazure&logoColor=white)
 ![Grafana](https://img.shields.io/badge/Grafana-F46800?style=for-the-badge&logo=grafana&logoColor=white)
-![Prometheus](https://img.shields.io/badge/Prometheus-E6522C?style=for-the-badge&logo=prometheus&logoColor=white)
 ---
 # How to Install This Project
 
@@ -359,14 +335,6 @@ This CI/CD pipeline automates testing, code quality scanning, and deployment of 
 > 💡 Notes:
 > - Ensure your VM is preconfigured with Docker, Docker Compose, and has access to the Laravel project path (`~/laravote_devops`).
 > - The pipeline supports both incremental deployments and fresh setup detection.
----
-### Screenshots
-![01 Halaman Login](https://github.com/RifkiCS29/laravote/blob/master/public/img/login.png)
-![01 Halaman Home Summary](https://github.com/RifkiCS29/laravote/blob/master/public/img/home.png)
-![01 Halaman Manage Users](https://github.com/RifkiCS29/laravote/blob/master/public/img/manageUser.png)
-![01 Halaman Manage Candidates](https://github.com/RifkiCS29/laravote/blob/master/public/img/manageCandidates.png)
-![01 Halaman Choice](https://github.com/RifkiCS29/laravote/blob/master/public/img/choice.png)
-
 
 ---
 ### Screenshots

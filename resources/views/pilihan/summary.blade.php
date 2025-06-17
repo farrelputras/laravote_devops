@@ -12,6 +12,7 @@
   <div class="row">
     <div class="col-md-12">
 
+      <!-- DEMO -->
       <!-- {{-- Chart Area --}}
       <div class="card mb-4">
         <div class="card-header"
@@ -84,6 +85,7 @@
 
 @endsection
 
+<!-- DEMO -->
 <!-- @section('scripts')
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
