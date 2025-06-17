@@ -88,4 +88,38 @@ class UserControllerTest extends TestCase
             'is_eligible' => true
         ]);
     }
+
+    public function test_show_returns_empty_success()
+    {
+        $admin = factory(User::class)->create(['roles' => json_encode(['ADMIN'])]);
+        $response = $this->actingAs($admin)->get(route('users.show', 1));
+        $response->assertStatus(200);
+    }
+
+    public function test_user_index_returns_view_for_non_ajax()
+    {
+        $admin = factory(User::class)->create(['roles' => json_encode(['ADMIN'])]);
+
+        $response = $this->actingAs($admin)->get(route('users.index'));
+
+        $response->assertStatus(200);
+        $response->assertViewIs('users.index');
+    }
+
+    public function test_user_index_returns_json_for_ajax()
+    {
+        $admin = factory(User::class)->create(['roles' => json_encode(['ADMIN'])]);
+        factory(User::class)->create(['status' => 'sudah']);
+        factory(User::class)->create(['status' => 'belum']);
+
+        $response = $this->actingAs($admin)->get(route('users.index', ['draw' => 1]), [
+            'HTTP_X-Requested-With' => 'XMLHttpRequest'
+        ]);
+
+        $response->assertStatus(200);
+        $response->assertJsonStructure([
+            'data', 'draw', 'recordsTotal', 'recordsFiltered'
+        ]);
+    }
+
 }

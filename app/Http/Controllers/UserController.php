@@ -106,7 +106,7 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        //
+        return response('', 200);
     }
 
     /**
