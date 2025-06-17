@@ -84,20 +84,6 @@
       border-radius: 10px;
       margin-right: 10px;
     }
-    .btn-google {
-      display: flex;
-      align-items: center;
-      width: 180px;
-      padding: 10px 15px;
-      background: #2A2F85;
-      color: #fff;
-      border: none;
-      border-radius: 10px;
-    }
-    .btn-google .its-logo {
-      height: 1em;
-      margin-right: 8px;
-    }
 
     /* Shared section/table styling */
     .section-card {
