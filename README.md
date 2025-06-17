@@ -229,8 +229,8 @@ This CI/CD pipeline automates testing, code quality scanning, and deployment of 
 
 ---
 ### Screenshots
-![01 Halaman Login](https://github.com/RifkiCS29/laravote/blob/master/public/img/login.png)
-![01 Halaman Home Summary](https://github.com/RifkiCS29/laravote/blob/master/public/img/home.png)
-![01 Halaman Manage Users](https://github.com/RifkiCS29/laravote/blob/master/public/img/manageUser.png)
-![01 Halaman Manage Candidates](https://github.com/RifkiCS29/laravote/blob/master/public/img/manageCandidates.png)
-![01 Halaman Choice](https://github.com/RifkiCS29/laravote/blob/master/public/img/choice.png)
+![01 Halaman Login](/loginPage.png)
+![01 Halaman Home Summary](/dashboardPage.png)
+![01 Halaman Manage Users](/userManagementPage.png)
+![01 Halaman Manage Candidates](/candidateManagementPage.png)
+![01 Halaman Choice](/votingPage.png)
