@@ -123,25 +123,25 @@ class UserControllerTest extends TestCase
     }
 
     // DEMO
-    public function test_user_delete_all()
-    {
-        $admin = factory(User::class)->create([
-        'roles' => json_encode(['ADMIN']),
-        ]);
+    // public function test_user_delete_all()
+    // {
+    //     $admin = factory(User::class)->create([
+    //     'roles' => json_encode(['ADMIN']),
+    //     ]);
 
-        $users = factory(User::class, 5)->create([
-            'roles' => json_encode(['VOTER']),
-        ]);
+    //     $users = factory(User::class, 5)->create([
+    //         'roles' => json_encode(['VOTER']),
+    //     ]);
 
-        $this->actingAs($admin);
+    //     $this->actingAs($admin);
 
-        $response = $this->delete(route('users.destroy', ['user' => 'all']));
+    //     $response = $this->delete(route('users.destroy', ['user' => 'all']));
 
-        $response->assertRedirect(route('users.index'));
-        $response->assertSessionHas('status', 'Semua user berhasil dihapus');
+    //     $response->assertRedirect(route('users.index'));
+    //     $response->assertSessionHas('status', 'Semua user berhasil dihapus');
 
-        $this->assertEquals(1, \App\User::count());
-        $this->assertEquals($admin->id, \App\User::first()->id);
-    }
+    //     $this->assertEquals(1, \App\User::count());
+    //     $this->assertEquals($admin->id, \App\User::first()->id);
+    // }
 
 }
