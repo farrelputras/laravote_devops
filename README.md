@@ -1,7 +1,7 @@
 
 # 🗳️ Laravote - DevOps Voting Application
 
-![Laravote Dashboard](images/laravote-dashboard.png)
+![Laravote Dashboard](./public/img/dashboardPage.png)
 
 **Laravote** is a web-based voting platform enhanced with DevOps best practices and full CI/CD pipeline implementation. This project integrates modern software development workflows including automated testing, containerized deployment, monitoring, and role-based feature control.
 
