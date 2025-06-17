@@ -13,7 +13,7 @@
     <div class="col-md-12">
 
       <!-- DEMO -->
-      <!-- {{-- Chart Area --}}
+      {{-- Chart Area --}}
       <div class="card mb-4">
         <div class="card-header"
              style="background-color:#F8B928; color:#2C2E83; font-size:1.5rem;">
@@ -24,7 +24,7 @@
             <canvas id="chartSuara" width="300" height="300"></canvas>
           </div>
         </div>
-      </div> -->
+      </div>
 
       {{-- Tabel Suara --}}
       <div class="card">
@@ -86,7 +86,7 @@
 @endsection
 
 <!-- DEMO -->
-<!-- @section('scripts')
+@section('scripts')
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 @php
@@ -135,4 +135,4 @@
     console.error('Canvas element #chartSuara not found or not a <canvas>');
   }
 </script>
-@endsection -->
+@endsection
