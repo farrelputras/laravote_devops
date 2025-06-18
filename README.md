@@ -22,6 +22,8 @@ Want to dive deeper into our technical documentation?
 ---
 
 ## 🏗️ Technology Stack
+### CI/CD PIPELINE WORKFLOW
+
 
 ### Backend
 - **Laravel 5.x** (PHP Framework)
@@ -179,7 +181,7 @@ Final Project Group 9 – PSO C
 ![Grafana](https://img.shields.io/badge/Grafana-F46800?style=for-the-badge&logo=grafana&logoColor=white)
 ---
 
-## Cloud Setup
+## Setup
 
 ## Github Actions CI/CD Pipeline
 This CI/CD pipeline automates testing, code quality scanning, and deployment of the Laravel application to a remote Virtual Machine (VM).
