@@ -1,7 +1,7 @@
 
 # 🗳️ Laravote - DevOps Voting Application
 
-![Laravote Dashboard](images/laravote-dashboard.png)
+![Laravote Dashboard](./public/img/dashboardPage.png)
 
 **Laravote** is a web-based voting platform enhanced with DevOps best practices and full CI/CD pipeline implementation. This project integrates modern software development workflows including automated testing, containerized deployment, monitoring, and role-based feature control.
 
@@ -125,7 +125,6 @@ More available in the full [API Docs](https://intip.in/DOCUMENTATIONLARAVOTE)
 
 ### 🔧 Continuous Integration (CI)
 GitHub Actions runs on every `push` and `pull request`:
-- ✅ Static Code Analysis (Larastan)
 - 🧪 Unit & Feature Testing (PHPUnit)
 - 📈 Code Coverage + Smell Report (SonarCloud)
 
@@ -229,8 +228,8 @@ This CI/CD pipeline automates testing, code quality scanning, and deployment of 
 
 ---
 ### Screenshots
-![01 Halaman Login](/loginPage.png)
-![01 Halaman Home Summary](/dashboardPage.png)
-![01 Halaman Manage Users](/userManagementPage.png)
-![01 Halaman Manage Candidates](/candidateManagementPage.png)
-![01 Halaman Choice](/votingPage.png)
+![01 Halaman Login](./public/img/loginPage.png)
+![01 Halaman Home Summary](./public/img/dashboardPage.png)
+![01 Halaman Manage Users](./public/img/userManagementPage.png)
+![01 Halaman Manage Candidates](./public/img/candidateManagementPage.png)
+![01 Halaman Choice](./public/img/votingPage.png)
