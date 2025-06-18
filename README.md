@@ -23,7 +23,7 @@ Want to dive deeper into our technical documentation?
 
 ## 🏗️ Technology Stack
 ### CI/CD PIPELINE WORKFLOW
-(./public/img/WORKFLOW.jng)
+(./public/img/WORKFLOW.jpg)
 
 ### Backend
 - **Laravel 5.x** (PHP Framework)
