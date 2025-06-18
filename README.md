@@ -102,12 +102,12 @@ docker-compose up --build -d
 |--------|-------------------------------|-------------------------------|
 | GET    | `/home`                       | Landing Page and Visualization|
 | GET    | `/users`                      | User List                     |
-| POST   | `/users                       | Add New User                  |
+| POST   | `/users`                      | Add New User                  |
 | GET    | `/users/{id}`                 | Show User Detail              |
 | PUT    | `/users/{id}`                 | Update User Details           |
 | DELETE | `/users/{id}`                 | Delete User                   |
-| PUT    | `/users/{id}/pilih'           | User Enable Voting            |
-| PUT    | `/users/{id}/toggle-eligible' | User Enable Voting            |
+| PUT    | `/users/{id}/pilih`           | User Enable Voting            |
+| PUT    | `/users/{id}/toggle-eligible` | User Enable Voting            |
 | POST   | `/voting/session`             | Start Voting Session          |
 | POST   | `/voting/session/end`         | End Voting Session            |
 | GET    | `/candidate`                  | Candidate List                |
