@@ -14,7 +14,7 @@
                     {{-- Tombol --}}
                     <div class="d-flex gap-2">
                     <!-- DEMO -->
-                    <form action="{{ route('users.destroy', 'all') }}" method="POST" onsubmit="return confirm('Yakin hapus semua user (kecuali admin)?');" style="display:inline-block;">
+                    <!-- <form action="{{ route('users.destroy', 'all') }}" method="POST" onsubmit="return confirm('Yakin hapus semua user (kecuali admin)?');" style="display:inline-block;">
                         @csrf
                         @method('DELETE')
                         <button type="submit"
@@ -22,7 +22,7 @@
                                 style="background-color: #2A2F85; color: #FFFFFF; border: none;">
                             Delete All Users
                         </button>
-                    </form>    
+                    </form>     -->
                     <a href="{{ route('users.create') }}"
                         class="btn btn-sm"
                         style="background-color: #2A2F85; color: #FFFFFF; border: none; margin-left: 8px;">
