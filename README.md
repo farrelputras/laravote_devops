@@ -125,7 +125,6 @@ More available in the full [API Docs](https://intip.in/DOCUMENTATIONLARAVOTE)
 
 ### 🔧 Continuous Integration (CI)
 GitHub Actions runs on every `push` and `pull request`:
-- ✅ Static Code Analysis (Larastan)
 - 🧪 Unit & Feature Testing (PHPUnit)
 - 📈 Code Coverage + Smell Report (SonarCloud)
 
